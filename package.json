@@ -1,29 +1,31 @@
 {
-    "name": "healthy-world",
-    "version": "1.0.0",
-    "description": "SPA Application",
-    "main": "./public/index.html",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "postinstall": "./node_modules/.bin/bower install",
-        "start": "./node_modules/.bin/live-server public"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/NenoStefanov/HealthyWorld.git"
-    },
-    "keywords": [
-        "js",
-        "rxjs"
-    ],
-    "author": "Neno Stefanov",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/NenoStefanov/HealthyWorld/issues"
-    },
-    "homepage": "https://github.com/NenoStefanov/HealthyWorld#readme",
-    "dependencies": {
-        "bower": "^1.8.0",
-        "live-server": "^1.2.0"
-    }
+  "name": "healthy-world",
+  "version": "1.0.0",
+  "description": "SPA Application",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/.bin/bower install",
+    "start": "./node_modules/.bin/live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NenoStefanov/HealthyWorld.git"
+  },
+  "keywords": [
+    "js",
+    "rxjs"
+  ],
+  "author": "Neno Stefanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NenoStefanov/HealthyWorld/issues"
+  },
+  "homepage": "https://github.com/NenoStefanov/HealthyWorld#readme",
+  "dependencies": {
+    "bower": "^1.8.0",
+    "handlebars": "^4.0.6",
+    "live-server": "^1.2.0",
+    "systemjs": "^0.19.42",
+    "systemjs-plugin-babel": "0.0.19"
+  }
 }

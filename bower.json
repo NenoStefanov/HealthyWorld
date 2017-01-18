@@ -1,21 +1,20 @@
 {
-  "name": "healthy-world",
-  "homepage": "https://github.com/NenoStefanov/HealthyWorld",
-  "authors": [
-    "Neno Stefanov"
-  ],
-  "description": "SPA Application",
-  "main": "index.html",
-  "keywords": [
-    "js",
-    "rxjs"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    "name": "healthy-world",
+    "homepage": "https://github.com/NenoStefanov/HealthyWorld",
+    "authors": [
+        "Neno Stefanov"
+    ],
+    "description": "SPA Application",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "sammy": "^0.7.6",
+        "bootstrap": "^3.3.7"
+    }
 }
