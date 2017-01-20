@@ -2,27 +2,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-
     <title>HealthyWorld</title>
-
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="./public/bower_components/bootstrap/dist/css/bootstrap.css">
+
+
+    <script src="./node_modules/systemjs/dist/system.js"></script>
+
+    <script src="./systemjs-config.js"></script>
+    <script>
+        System.import('app').catch(function(err) {
+            console.log(err);
+        });
+    </script>
 </head>
 
 <body>
     <main id="content"></main>
-
-    <!--Libs-->
-    <script src="./public/bower_components/jquery/dist/jquery.js"></script>
-    <script src="./public/bower_components/sammy/lib/sammy.js"></script>
-    <script src="./public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./node_modules/systemjs/dist/system.js"></script>
-
-    <!--App-->
-    <script src="./config.js"></script>
-    <script>
-        System.import('app');
-    </script>
 </body>
 
 </html>

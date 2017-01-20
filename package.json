@@ -23,8 +23,10 @@
   "homepage": "https://github.com/NenoStefanov/HealthyWorld#readme",
   "dependencies": {
     "bower": "^1.8.0",
+    "firebase": "^3.6.6",
     "handlebars": "^4.0.6",
     "live-server": "^1.2.0",
+    "rxjs": "^5.0.3",
     "systemjs": "^0.19.42",
     "systemjs-plugin-babel": "0.0.19"
   }
