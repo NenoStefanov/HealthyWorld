@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+
 import 'firebase/storage';
 import 'firebase/database';
 import 'rxjs/add/operator/map';
@@ -19,7 +20,6 @@ export class DataService {
         } else if (query.orderByChild) {
             firebaseRef = firebaseRef.orderByChild(query.orderByChild);
         }
-
 
         // filter data
         if (query.startAt || query.endAt) {
@@ -62,11 +62,14 @@ export class DataService {
             });
     }
 
-    save(data, url) {
+    save(url, data) {
         return this._databaseRef.child(url).push(data);
     }
 
-    update(dataToSave) {
+    update(url, data) {
+        let dataToSave = {};
+        dataToSave[url] = data || true;
+
         return this._databaseRef.update(dataToSave);
     }
 
@@ -74,7 +77,7 @@ export class DataService {
     // storage
 
     getStorageItemRef(name) {
-        return this.storageRef.child(name);
+        return this._storageRef.child(name);
     }
 
     saveStorageItem(fileRef, file) {
