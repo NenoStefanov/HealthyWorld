@@ -4,21 +4,31 @@
 <head>
     <title>HealthyWorld</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./public/bower_components/bootstrap/dist/css/bootstrap.css">
 
+    <!-- build:css-libs -->
+    <link rel="stylesheet" href="./src/client/bower_components/bootstrap/dist/css/bootstrap.css">
+    <!-- endbuild -->
 
-    <script src="./node_modules/systemjs/dist/system.js"></script>
-
-    <script src="./systemjs-config.js"></script>
-    <script>
-        System.import('app').catch(function(err) {
-            console.log(err);
-        });
-    </script>
+    <!-- build:css-app -->
+    <link rel="stylesheet" href="./build/styles.min.css">
+    <!-- endbuild -->
 </head>
 
 <body>
     <main id="content"></main>
+
+    <!--Libs-->
+    <!-- build:js-libs -->
+    <script src="./src/client/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./src/client/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./src/client/bower_components/sammy/lib/min/sammy-0.7.6.min.js"></script>
+    <!-- endbuild -->
+
+
+    <!--App-->
+    <!-- build:js-app -->
+    <script src="./build/js/app.min.js"></script>
+    <!-- endbuild -->
 </body>
 
 </html>

@@ -4,7 +4,6 @@ import 'firebase/storage';
 import 'firebase/database';
 import 'rxjs/add/operator/map';
 
-
 export class DataService {
     constructor(firebaseApp) {
         this._databaseRef = firebaseApp.database().ref();
