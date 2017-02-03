@@ -29,13 +29,16 @@ gulp.task('copy', gulpsync.sync(['copy:html']));
 
 
 // lint
-const csslint = require('gulp-csslint'),
+const gulpStylelint = require('gulp-stylelint'),
     eslint = require('gulp-eslint');
 
 gulp.task('lint:css', () => {
     return gulp.src('src/client/styles/*.css')
-        .pipe(csslint())
-        .pipe(csslint.formatter());
+        .pipe(gulpStylelint({
+            reporters: [
+                { formatter: 'string', console: true }
+            ]
+        }));
 });
 
 gulp.task('lint:js', () => {
@@ -84,12 +87,12 @@ gulp.task('build', gulpsync.sync(['lint', 'clean', 'compile', 'copy']));
 // serve
 const gls = require('gulp-live-server');
 
-gulp.task('serve:dev', ['build'], function() {
+gulp.task('serve:dev', ['build'], () => {
     const server = gls.static('.', 3000);
     server.start();
 });
 
-gulp.task('serve:prod', ['build'], function() {
+gulp.task('serve:prod', ['build'], () => {
     const server = gls.static('./build', 3000);
     server.start();
 });
