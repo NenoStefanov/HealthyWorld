@@ -81,13 +81,15 @@ gulp.task('compile', gulpsync.sync(['compile:js', 'compile:css']));
 
 
 // build
+gulp.task('build:dev', gulpsync.sync(['clean', 'compile']));
+
 gulp.task('build', gulpsync.sync(['lint', 'clean', 'compile', 'copy']));
 
 
 // serve
 const gls = require('gulp-live-server');
 
-gulp.task('serve:dev', ['build'], () => {
+gulp.task('serve:dev', ['build:dev'], () => {
     const server = gls.static('.', 3000);
     server.start();
 });

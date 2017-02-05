@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable';
 
 import 'firebase/storage';
 import 'firebase/database';
-import 'rxjs/add/operator/map';
 
 export class DataService {
     constructor(firebaseApp) {
@@ -57,7 +56,13 @@ export class DataService {
     getList(url, query) {
         return this.getObject(url, query)
             .map(result => {
-                return result ? Object.values(result) : null;
+                if (!result) {
+                    return null;
+                }
+
+                return Object.keys(result).map(key => {
+                    return { $key: key, val: result[key] };
+                });
             });
     }
 
@@ -79,8 +84,8 @@ export class DataService {
         return this._storageRef.child(name);
     }
 
-    saveStorageItem(fileRef, file) {
-        fileRef = this.getStorageItemRef(fileRef);
+    saveStorageItem(fileKey, file) {
+        let fileRef = this.getStorageItemRef(fileKey);
         return fileRef.put(file);
     }
 }
