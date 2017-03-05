@@ -1,10 +1,4 @@
-import * as firebase from 'firebase/app';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/observable/combineLatest';
+/* globals firebase */
 
 import { AuthService } from './services/auth-service';
 import { DataService } from './services/data-service';
@@ -21,7 +15,5 @@ const firebaseApp = firebase.initializeApp(firebaseConfig),
     usersService = new UsersService(dataService),
     keyGenerator = new KeyGenerator(),
     postsService = new PostsService(authService, dataService, usersService, keyGenerator);
-
-
 
 router.run('#/');

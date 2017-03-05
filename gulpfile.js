@@ -5,24 +5,36 @@ const gulp = require('gulp'),
 // clean
 const del = require('del');
 
-gulp.task('clean', () => {
-    return del(['build']);
+gulp.task('clean:dev', () => {
+    return del(['./build/dev']);
 });
 
+gulp.task('clean', () => {
+    return del(['./build/prod']);
+});
 
 // copy
 const htmlreplace = require('gulp-html-replace'),
     cdns = require('./config').cdns;
 
 gulp.task('copy:html', () => {
-    return gulp.src('index.html')
+    return gulp.src('./src/client/index.html')
         .pipe(htmlreplace({
-            'css-libs': [cdns.bootstrapCSS],
-            'js-libs': [cdns.jquery, cdns.bootstrapJS, cdns.sammy],
+            'css-libs': [cdns.bootstrap.css],
+            'js-libs': [
+                cdns.jquery,
+                cdns.sammy,
+                cdns.bootstrap.js,
+                cdns.rxjs,
+                cdns.firebase.app,
+                cdns.firebase.auth,
+                cdns.firebase.database,
+                cdns.firebase.storage
+            ],
             'css-app': 'styles.min.css',
             'js-app': 'js/app.min.js'
         }))
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('./build/prod'));
 });
 
 gulp.task('copy', gulpsync.sync(['copy:html']));
@@ -33,7 +45,7 @@ const gulpStylelint = require('gulp-stylelint'),
     eslint = require('gulp-eslint');
 
 gulp.task('lint:css', () => {
-    return gulp.src('src/client/styles/*.css')
+    return gulp.src('./src/client/styles/**/*.css')
         .pipe(gulpStylelint({
             reporters: [
                 { formatter: 'string', console: true }
@@ -42,7 +54,7 @@ gulp.task('lint:css', () => {
 });
 
 gulp.task('lint:js', () => {
-    return gulp.src(['src/client/scripts/**/*.js'])
+    return gulp.src(['./src/client/scripts/**/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
@@ -60,6 +72,14 @@ const browserify = require('browserify'),
     concatCss = require('gulp-concat-css'),
     cleanCSS = require('gulp-clean-css');
 
+gulp.task('compile:js:dev', () => {
+    return browserify({ entries: './src/client/scripts/app.js', debug: true })
+        .transform('babelify', { presets: ['es2015'] })
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(gulp.dest('./build/dev'));
+});
+
 gulp.task('compile:js', () => {
     return browserify({ entries: './src/client/scripts/app.js', debug: true })
         .transform('babelify', { presets: ['es2015'] })
@@ -67,21 +87,23 @@ gulp.task('compile:js', () => {
         .pipe(source('app.min.js'))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest('./build/js'));
+        .pipe(gulp.dest('./build/prod/js'));
 });
 
 gulp.task('compile:css', () => {
     return gulp.src('./src/client/styles/**/*.css')
         .pipe(concatCss('styles.min.css'))
         .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('./build/prod'));
 });
+
+gulp.task('compile:dev', ['compile:js:dev']);
 
 gulp.task('compile', gulpsync.sync(['compile:js', 'compile:css']));
 
 
 // build
-gulp.task('build:dev', gulpsync.sync(['clean', 'compile']));
+gulp.task('build:dev', gulpsync.sync(['clean:dev', 'compile:dev']));
 
 gulp.task('build', gulpsync.sync(['lint', 'clean', 'compile', 'copy']));
 
@@ -90,11 +112,11 @@ gulp.task('build', gulpsync.sync(['lint', 'clean', 'compile', 'copy']));
 const gls = require('gulp-live-server');
 
 gulp.task('serve:dev', ['build:dev'], () => {
-    const server = gls.static('.', 3000);
+    const server = gls.static(['.', './src/client'], 3000);
     server.start();
 });
 
-gulp.task('serve:prod', ['build'], () => {
-    const server = gls.static('./build', 3000);
+gulp.task('serve', ['build'], () => {
+    const server = gls.static('./build/prod', 3000);
     server.start();
 });

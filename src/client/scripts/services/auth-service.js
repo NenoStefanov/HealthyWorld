@@ -1,5 +1,3 @@
-import 'firebase/auth';
-
 export class AuthService {
     constructor(firebaseApp) {
         this._firebaseAuth = firebaseApp.auth();

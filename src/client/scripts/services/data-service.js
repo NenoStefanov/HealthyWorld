@@ -1,7 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-
-import 'firebase/storage';
-import 'firebase/database';
+/* globals Observable */
 
 export class DataService {
     constructor(firebaseApp) {
@@ -57,7 +54,7 @@ export class DataService {
         return this.getObject(url, query)
             .map(result => {
                 if (!result) {
-                    return null;
+                    return [];
                 }
 
                 return Object.keys(result).map(key => {

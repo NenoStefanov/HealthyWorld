@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs/Observable';
+/* globals Observable */
 
 export class PostsService {
-    constructor(authService, dataService, usersService, keyGenerator) {
+    constructor(postsUrl, authService, dataService, usersService, keyGenerator) {
+        this.postsUrl = postsUrl;
         this._authService = authService;
         this._dataService = dataService;
         this._usersService = usersService;
@@ -10,14 +11,12 @@ export class PostsService {
 
     _findPostsByKeys(postsKeys$) {
         return postsKeys$
-            .map(keys => {
-                keys.map(key => this.findPostByKey(key))
-            })
+            .map(keys => keys.map(key => this.findPostByKey(key)))
             .flatMap(fbojs => Observable.combineLatest(fbojs));
     }
 
     _findPostKeysByUserKey(userKey) {
-        let url = `postsPerUser/${userKey}`;
+        let url = `${this.postsUrl}PerUser/${userKey}`;
 
         return this._dataService.getList(url)
             .map(keys => keys.map(keyObj => keyObj.$key));
@@ -36,16 +35,15 @@ export class PostsService {
                 post.added = currentDate;
             })
             .map(() => {
-                let url = 'posts';
-                return this._dataService.save(url, post);
+                return this._dataService.save(this.postsUrl, post);
             })
             .map(newPost => {
-                let url = `postsPerUser/${userId}`,
+                let userPostsUrl = `${this.postsUrl}PerUser/${userId}`,
                     newPostKey = newPost.key,
                     postPerUser = {};
 
                 postPerUser[newPostKey] = true;
-                this._dataService.update(url, postPerUser);
+                this._dataService.update(userPostsUrl, postPerUser);
             })
             .toPromise();
     }
@@ -64,16 +62,18 @@ export class PostsService {
                 .then(() => this._savePost(post));
         }
 
-        return this._savePost(post);
+        return this._savePost(this.postsUrl, post);
     }
 
     updatePost(post, newData, newImage) {
         let url = post.key;
 
-        if (newImage) { // delete old image
+        // here will delete old image
+
+        if (newImage) {
             return this._savePostImage(newImage)
                 .then(imageUrl => { newData.image = imageUrl; })
-                .then(() => this._dataService.update(post, newData));
+                .then(() => this._dataService.update(url, newData));
         }
 
         // delete newData.image; // only if is necessary
@@ -81,22 +81,20 @@ export class PostsService {
     }
 
     findPostByKey(postKey) {
-        let url = `posts/${postKey}`;
+        let url = `${this.postsUrl}/${postKey}`;
         return this._dataService.getObject(url);
     }
 
     findAllPosts() {
-        let url = 'posts';
-        return this._dataService.getList(url);
+        return this._dataService.getList(this.postsUrl);
     }
 
     findLastestsPosts(count = 12) {
-        let url = 'posts',
-            query = {
-                limitToLast: count
-            };
+        let query = {
+            limitToLast: count
+        };
 
-        return this._dataService.getList(url, query);
+        return this._dataService.getList(this.postsUrl, query);
     }
 
     findPostsByUserKey(userKey) {

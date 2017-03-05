@@ -1,10 +1,11 @@
 export class UsersService {
     constructor(dataService) {
         this._dataService = dataService;
+        this._usersUrl = 'users';
     }
 
     createUser(uid, user) {
-        let url = `users/${uid}`,
+        let url = `${this._usersUrl}/${uid}`,
             dataToSave = {};
 
         dataToSave[url] = user;
@@ -12,7 +13,7 @@ export class UsersService {
     }
 
     updateUser(uid, user) {
-        let url = `users/${uid}`,
+        let url = `${this._usersUrl}/${uid}`,
             dataToSave = {};
 
         dataToSave[url] = user;
@@ -20,12 +21,11 @@ export class UsersService {
     }
 
     getAllUsers(query) {
-        let url = 'users';
-        return this._dataService.getList(url, query);
+        return this._dataService.getList(this._usersUrl, query);
     }
 
     getUserByKey(userKey) {
-        let url = `users/${userKey}`;
+        let url = `${this._usersUrl}/${userKey}`;
         return this._dataService.getObject(url);
     }
 }

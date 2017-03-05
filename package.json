@@ -11,10 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/NenoStefanov/HealthyWorld.git"
   },
-  "keywords": [
-    "js",
-    "rxjs"
-  ],
   "author": "Neno Stefanov",
   "license": "ISC",
   "bugs": {
