@@ -1,0 +1,3 @@
+.crumbs a::after {
+  content: "»";
+}

@@ -8,9 +8,10 @@
 
     <title>Здравословен Свят</title>
 
-    <meta name="author" content="Neno Stefanov">
-    <meta name="description" content="Healthy World is site...">
-
+    <meta name="author" content="Нено Стефанов">
+    <meta name="description" content="Здравословен Свят е сайт в който може да намерите полезни съвети за вашето здраве. Също така може да задавате съвети във нашия форум.">
+    <meta name="keywords" content="здравословен, здравословен свят, здраве, здравеопазване, полезни съвети">
+    
     <!-- third-generation iPad with high-resolution Retina display: -->
     <link rel="apple-touch-icon" sizes="144x144" href="site-icon.png">
     <!-- iPhone with high-resolution Retina display: -->
@@ -22,7 +23,7 @@
     <!-- basic favicon -->
     <link rel="shortcut icon" href="site-icon.png">
     <!-- Windows 8 -->
-    <meta name="application-name" content="Здравословен свят">
+    <meta name="application-name" content="Здравословен Свят">
     <meta name="msapplication-TileImage" content="site-icon.png">
     <meta name="msapplication-TileColor" content="#FFFFFF">
 
@@ -32,15 +33,15 @@
     <!-- Twitter posts -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@HealthyWorld">
-    <meta name="twitter:title" content="Healthy World">
-    <meta name="twitter:description" content="Healthy World is site...">
+    <meta name="twitter:title" content="Здравословен Свят">
+    <meta name="twitter:description" content="Здравословен свят е сайт в който може да намерите полезни съвети за вашето здраве. Също така може да задавате съвети във нашия форум.">
     <meta name="twitter:image" content="">
 
     <!-- Facebook posts -->
     <meta property="og:url" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Healty World">
-    <meta property="og:description" content="Healthy World is site...">
+    <meta property="og:title" content="Здравословен Свят">
+    <meta property="og:description" content="Здравословен свят е сайт в който може да намерите полезни съвети за вашето здраве. Също така може да задавате съвети във нашия форум.">
     <meta property="og:image" content="">
 
 
@@ -79,6 +80,10 @@
         </nav>
     </header>
 
+    <noscript>
+        <div id="noscript-warning">Здравословен Свят работи по-добре със активиран JavaScript</div>
+    </noscript>
+
     <main id="content"></main>
 
     <footer>
@@ -92,7 +97,7 @@
                 </div>
                 <div class="col">
                     <h6>Последни постове</h6>
-                    <ul id="recent-posts"></ul>
+                    <ul class="recent-posts"></ul>
                 </div>
                 <div class="col">
                     <h6>Заглавие</h6>
@@ -100,13 +105,13 @@
                 </div>
                 <div class="col">
                     <h6>Последни коментари</h6>
-                    <ul class="recent-comments-list">
+                    <ul class="recent-comments">
                     </ul>
                 </div>
             </div>
             <div class="row bottom-footer">
                 <div>
-                    <p>Designed by <span>Elegant WordPress Themes</span> | Powered by <span>WordPress</span></p>
+                    <p>Designed by <a href="http://www.elegantthemes.com/" title="Универсален WordPress наръчник за уеб дизайн">Elegant WordPress Themes</a> | Powered by <a href="https://bg.wordpress.org/">WordPress</a></p>
                 </div>
             </div>
         </div>
@@ -120,6 +125,7 @@
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./bower_components/sammy/lib/min/sammy-0.7.6.min.js"></script>
+    <script src="./bower_components/handlebars/handlebars.min.js"></script>
     <script src="../../node_modules/rx-lite/rx.lite.js"></script>
     <script src="../../node_modules/firebase/firebase-app.js"></script>
     <script src="../../node_modules/firebase/firebase-auth.js"></script>

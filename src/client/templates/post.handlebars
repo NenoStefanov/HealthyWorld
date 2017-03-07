@@ -1,0 +1,72 @@
+<div class="article-meta">
+    <nav class="crumbs" role="navigation">
+        <ol>
+            <li>
+                <a href="#/">Начало</a>
+            </li>
+            <li>
+                <a href="#/{{category}}">{{category}}</a>
+            </li>
+            <li>
+                {{title}}
+            </li>
+        </ol>
+    </nav>
+</div>
+<div id="article-head">
+    <h1>{{title}}</h1>
+    <p>Публикувано от {{author}} на {{date}} в {{category}} категория</p>
+</div>
+<article>
+    <div>
+        <p>Публикувано от {{author}} на {{date}} в {{category}} категория</p>
+        <hr>
+    </div>
+    <div>
+        <img src="{{image}}" alt="Пост снимка">
+        <p>{{content}}</p>
+    </div>
+    <div id="comments">
+        <p>{{comments.length}} Коментара</p>
+        <ul>
+            {{#comments}}
+            <li>
+                <div class="author-image">
+                    <img src="{{authorImg}}" alt="Изображение на автора на коментара">
+                </div>
+                <p>{{author}}</p>
+                <p>{{content}}</p>
+                <button>Виж повече</button>
+                <span>{{date}}</span> {{#replies}}
+                <div class="author-image">
+                    <img src="{{authorImg}}" alt="Изображение на автора на коментара">
+                </div>
+                <p>{{author}}</p>
+                <p>{{content}}</p>
+                <button>Виж повече</button>
+                <span>{{date}}</span> {{/replies}}
+            </li>
+            {{/comments}}
+        </ul>
+        <form>
+            <input type="text" placeholder="Име">
+            <input type="text" placeholder="Имейл адрес">
+            <textarea name="message" id="comment-message" placeholder="Съобщение"></textarea>
+        </form>
+        <button>Виж повече</button>
+    </div>
+</article>
+<div id="sidebar">
+    <aside>
+        <h3>Последно от блога</h3>
+        <ul class="recent-blogs"></ul>
+    </aside>
+    <aside>
+        <h3>Архиви</h3>
+        <ul class="archives"></ul>
+    </aside>
+    <aside>
+        <h3>Последни постове</h3>
+        <ul class="recent-posts"></ul>
+    </aside>
+</div>
