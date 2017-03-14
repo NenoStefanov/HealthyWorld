@@ -1,4 +1,4 @@
-/* globals Observable */
+/* globals Rx */
 
 export class DataService {
     constructor(firebaseApp) {
@@ -38,7 +38,7 @@ export class DataService {
         let firebaseRef = this._databaseRef.child(url);
         firebaseRef = query ? this._setQuery(firebaseRef, query) : firebaseRef;
 
-        return Observable.create(observer => {
+        return Rx.Observable.create(observer => {
             try {
                 firebaseRef
                     .on('value', snapshot => {

@@ -1,3 +1,27 @@
+body {
+  font-family: 'Droid Sans', Arial, Verdana, sans-serif;
+  font-size: 12px;
+  color: #929292;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Kreon', Arial, Verdana, sans-serif;
+  color: #1d1d1d;
+}
+
+.crumbs a {
+  font-family: 'Kreon', Arial, Verdana, sans-serif;
+}
+
 .crumbs a::after {
   content: "»";
+}
+
+#article-head {
+  text-align: center;
 }

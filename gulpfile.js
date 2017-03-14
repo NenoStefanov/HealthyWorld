@@ -26,6 +26,8 @@ gulp.task('copy:html', () => {
                 cdns.sammy,
                 cdns.bootstrap.js,
                 cdns.rxjs,
+                cdns.handlebars,
+                cdns.bluebird,
                 cdns.firebase.app,
                 cdns.firebase.auth,
                 cdns.firebase.database,
@@ -37,7 +39,22 @@ gulp.task('copy:html', () => {
         .pipe(gulp.dest('./build/prod'));
 });
 
-gulp.task('copy', gulpsync.sync(['copy:html']));
+gulp.task('copy:templates', () => {
+    return gulp.src('./src/client/templates/**/*.handlebars')
+        .pipe(gulp.dest('./build/prod/templates'));
+});
+
+gulp.task('copy:fonts', () => {
+    return gulp.src('./src/client/fonts/**/*.ttf')
+        .pipe(gulp.dest('./build/prod/fonts'));
+});
+
+gulp.task('copy:images', () => {
+    return gulp.src('./src/client/images/**/*.{png,gif,jpg}')
+        .pipe(gulp.dest('./build/prod/images'));
+});
+
+gulp.task('copy', gulpsync.sync(['copy:html', 'copy:templates', 'copy:fonts', 'copy:images']));
 
 
 // lint

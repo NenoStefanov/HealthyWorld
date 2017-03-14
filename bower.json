@@ -16,6 +16,11 @@
   "dependencies": {
     "sammy": "^0.7.6",
     "bootstrap": "^3.3.7",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "bluebird": "^3.5.0"
+  },
+  "devDependencies": {
+    "rxjs": "^4.1.0",
+    "firebase": "^3.7.1"
   }
 }

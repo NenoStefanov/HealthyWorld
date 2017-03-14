@@ -1,4 +1,4 @@
-/* globals Observable */
+/* globals Rx */
 
 export class PostsService {
     constructor(postsUrl, authService, dataService, usersService, keyGenerator) {
@@ -12,7 +12,7 @@ export class PostsService {
     _findPostsByKeys(postsKeys$) {
         return postsKeys$
             .map(keys => keys.map(key => this.findPostByKey(key)))
-            .flatMap(fbojs => Observable.combineLatest(fbojs));
+            .flatMap(fbojs => Rx.Observable.combineLatest(fbojs));
     }
 
     _findPostKeysByUserKey(userKey) {
