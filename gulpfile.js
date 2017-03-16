@@ -125,6 +125,15 @@ gulp.task('build:dev', gulpsync.sync(['clean:dev', 'compile:dev']));
 gulp.task('build', gulpsync.sync(['lint', 'clean', 'compile', 'copy']));
 
 
+// watch
+const livereload = require('gulp-livereload');
+
+gulp.task('watch:dev', () => {
+  livereload.listen();
+  gulp.watch('./src/client/scripts/**/*.js', ['compile:dev']);
+});
+
+
 // serve
 const gls = require('gulp-live-server');
 
@@ -136,4 +145,8 @@ gulp.task('serve:dev', ['build:dev'], () => {
 gulp.task('serve', ['build'], () => {
     const server = gls.static('./build/prod', 3000);
     server.start();
+
+    gulp.watch(['./src/client/**/*.*', './build/dev/**/*.*'], file => {
+        server.notify.apply(server, file);
+    });
 });

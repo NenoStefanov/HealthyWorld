@@ -31,6 +31,7 @@
     "gulp-eslint": "^3.0.1",
     "gulp-html-replace": "^1.6.2",
     "gulp-live-server": "0.0.30",
+    "gulp-livereload": "^3.8.1",
     "gulp-stylelint": "^3.7.0",
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^2.0.1",

@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Здравословен Свят</title>
+    <title>Healthy World</title>
 
-    <meta name="author" content="Нено Стефанов">
-    <meta name="description" content="Здравословен Свят е сайт в който може да намерите полезни съвети за вашето здраве. Също така може да задавате съвети във нашия форум.">
-    <meta name="keywords" content="здравословен, здравословен свят, здраве, здравеопазване, полезни съвети">
+    <meta name="author" content="Neno Stefanov">
+    <meta name="description" content="Healthy World is a site where you can find useful materials about healthy lifestyle">
+    <meta name="keywords" content="healthy, healthy world, health, healthy lifestyle">
 
-    <!-- third-generation iPad with high-resolution Retina display: -->
-    <link rel="apple-touch-icon" sizes="144x144" href="site-icon.png">
-    <!-- iPhone with high-resolution Retina display: -->
-    <link rel="apple-touch-icon" sizes="114x114" href="site-icon.png">
-    <!-- first- and second-generation iPad: -->
-    <link rel="apple-touch-icon" sizes="72x72" href="site-icon.png">
-    <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <link rel="apple-touch-icon-precomposed" href="site-icon.png">
-    <!-- basic favicon -->
-    <link rel="shortcut icon" href="site-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
     <!-- Windows 8 -->
-    <meta name="application-name" content="Здравословен Свят">
-    <meta name="msapplication-TileImage" content="site-icon.png">
-    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- Browser toolbar color -->
     <meta name="theme-color" content="#00ff77">
@@ -33,20 +37,20 @@
     <!-- Twitter posts -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@HealthyWorld">
-    <meta name="twitter:title" content="Здравословен Свят">
-    <meta name="twitter:description" content="Здравословен свят е сайт в който може да намерите полезни съвети за вашето здраве. Също така може да задавате съвети във нашия форум.">
-    <meta name="twitter:image" content="">
+    <meta name="twitter:title" content="Healthy World">
+    <meta name="twitter:description" content="Healthy World is a site where you can find useful materials about healthy lifestyle">
+    <meta name="twitter:image" content="/images/logo.png">
 
     <!-- Facebook posts -->
     <meta property="og:url" content="">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Здравословен Свят">
-    <meta property="og:description" content="Здравословен свят е сайт в който може да намерите полезни съвети за вашето здраве. Също така може да задавате съвети във нашия форум.">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Healthy World">
+    <meta property="og:description" content="Healthy World is a site where you can find useful materials about healthy lifestyle">
+    <meta property="og:image" content="/images/logo.png">
 
 
     <!-- build:css-libs -->
-    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <!--<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">-->
     <!-- endbuild -->
 
     <!-- build:css-app -->
@@ -62,33 +66,39 @@
 </head>
 
 <body>
-    <header>
-        <a href="#">
-            <img src="#" alt="Лого на сайта"> Здравословен Свят
-        </a>
-        <div class="social-links">
-            <a href="#"><img src="#" alt="Twitter лого"></a>
-            <a href="#"><img src="#" alt="Rss лого"></a>
-            <a href="#"><img src="#" alt="Facebook лого"></a>
+    <header id="site-header">
+        <div class="site-logo">
+            <a href="#">
+                <img src="./images/site-logo.png" alt="Site logo" class="logo">
+            </a>
+            <a href="#" class="site-title">Healthy World</a>
+            <p class="slogan">Some kind of slogan</p>
         </div>
-        <form id="form-search">
-            <div class="form-group">
-                <input type="search" placeholder="Потърсете в сайта..." id="tb-search">
-                <input type="image" src="./images/search-icon" id="btn-search">
+        <div class="additional-info">
+            <form id="form-search" role="search">
+                <div class="form-group">
+                    <input type="search" placeholder="Search this site..." id="tb-search">
+                    <input type="image" src="./images/search.png" id="btn-search">
+                </div>
+            </form>
+            <div class="social-links">
+                <a href="#"><img src="./images/twitter.png" alt="Twitter logo"></a>
+                <a href="#"><img src="./images/rss.png" alt="Rss logo"></a>
+                <a href="#"><img src="./images/facebook.png" alt="Facebook logo"></a>
             </div>
-        </form>
+        </div>
         <nav id="main-nav" role="navigation">
             <ul>
-                <li><a href="#">Начало</a></li>
-                <li><a href="#">За нас</a></li>
-                <li><a href="#">Контакти</a></li>
-                <li><a href="#">Блог</a></li>
+                <li><a href="#" class="selected">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Blog</a></li>
             </ul>
         </nav>
     </header>
 
     <noscript>
-        <div id="noscript-warning">Здравословен Свят работи по-добре със активиран JavaScript</div>
+        <div id="noscript-warning">Healthy World works better with JavaScript enabled</div>
     </noscript>
 
     <main id="content"></main>
@@ -97,13 +107,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <img src="#" alt="Chameleon theme logo">
+                    <img src="#" alt="Site logo">
                     <h6>Chameleon Theme 2010</h6>
                     <p>Curabitur blandit retrum pharetra. Donec dictum felis eu eros pre- tium vulputate.Etiam quis nulla ac turpis molestie tempus et in purus. Suspendisse potenti.Inte- ger accumsan acuumsan est, ac
                     </p>
                 </div>
                 <div class="col">
-                    <h6>Последни постове</h6>
+                    <h6>Recent Posts</h6>
                     <ul class="recent-posts"></ul>
                 </div>
                 <div class="col">
@@ -111,14 +121,14 @@
                     <p>Текст</p>
                 </div>
                 <div class="col">
-                    <h6>Последни коментари</h6>
+                    <h6>Recent Comments</h6>
                     <ul class="recent-comments">
                     </ul>
                 </div>
             </div>
             <div class="row bottom-footer">
                 <div>
-                    <p>Designed by <a href="http://www.elegantthemes.com/" title="Универсален WordPress наръчник за уеб дизайн">Elegant WordPress Themes</a> | Powered by <a href="https://bg.wordpress.org/">WordPress</a></p>
+                    <p>Designed by <a href="http://www.elegantthemes.com/" title=" Ultimate WordPress Toolkit For Web Design">Elegant WordPress Themes</a> | Powered by <a href="https://bg.wordpress.org/">WordPress</a></p>
                 </div>
             </div>
         </div>
