@@ -1,72 +1,115 @@
-<div class="article-meta">
-    <nav class="crumbs" role="navigation">
-        <ol>
-            <li>
-                <a href="#/">Начало</a>
-            </li>
-            <li>
-                <a href="#/{{category}}">{{category}}</a>
-            </li>
-            <li>
-                {{title}}
-            </li>
-        </ol>
-    </nav>
-</div>
-<div id="article-head">
-    <h1>{{title}}</h1>
-    <p>Публикувано от {{author}} на {{date}} в {{category}} категория</p>
-</div>
-<article>
-    <div>
-        <p>Публикувано от {{author}} на {{date}} в {{category}} категория</p>
-        <hr>
+<section id="main-content" class="group">
+    <div class="content-meta">
+        <nav class="crumbs" role="navigation">
+            <ol>
+                <li>
+                    <a href="#/">Home</a>
+                </li>
+                <li>
+                    <a href="#/{{category}}">{{category}}</a>
+                </li>
+                <li>
+                    {{title}}
+                </li>
+            </ol>
+        </nav>
     </div>
-    <div>
-        <img src="{{image}}" alt="Пост снимка">
-        <p>{{content}}</p>
+    <header class="content-header">
+        <h1>{{title}}</h1>
+        <p class="content-description">Posted by {{author}} on {{date}} in {{category}} Category</p>
+    </header>
     </div>
-    <div id="comments">
-        <p>{{comments.length}} Коментара</p>
-        <ul>
-            {{#comments}}
-            <li>
-                <div class="author-image">
-                    <img src="{{authorImg}}" alt="Изображение на автора на коментара">
-                </div>
-                <p>{{author}}</p>
-                <p>{{content}}</p>
-                <button>Виж повече</button>
-                <span>{{date}}</span> {{#replies}}
-                <div class="author-image">
-                    <img src="{{authorImg}}" alt="Изображение на автора на коментара">
-                </div>
-                <p>{{author}}</p>
-                <p>{{content}}</p>
-                <button>Виж повече</button>
-                <span>{{date}}</span> {{/replies}}
-            </li>
-            {{/comments}}
-        </ul>
-        <form>
-            <input type="text" placeholder="Име">
-            <input type="text" placeholder="Имейл адрес">
-            <textarea name="message" id="comment-message" placeholder="Съобщение"></textarea>
-        </form>
-        <button>Виж повече</button>
+    <div class="content">
+        <p class="content-info">Posted by <span class="darkgray">{{author}}</span> on {{date}} in <span class="darkgray">{{category}} Category</span>            | {{comments.length}} Comments</p>
+        <div class="content-wrap">
+            <div class="post-img-container">
+                <img src="{{image}}" alt="Post picture" class="post-image">
+            </div>
+            <p>{{content}}</p>
+        </div>
+        <div class="comments">
+            <h3>{{comments.length}} Comments</h3>
+            <ul class="comments-list">
+                {{#comments}}
+                <li>
+                    <div class="comment">
+                        <div class="comment-body group">
+                            <div class="author-img-container">
+                                <img src="{{authorImg}}" alt="Picture of comment author" class="author-img">
+                            </div>
+                            <div class="comment-wrap">
+                                <span class="author-name">{{author}}</span>
+                                <time datetime="{{YYYY-MM-DD}}" class="comment-date">{{date}}</time>
+                                <p>{{content}} <a href="#" class="button">Read More</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    {{#if replies.length}}
+                    <ul>
+                        {{#replies}}
+                        <li>
+                            <div class="comment inner-comment">
+                                <div class="comment-body group">
+                                    <div class="author-img-container">
+                                        <img src="{{authorImg}}" alt="Picture of comment author" class="author-img">
+                                    </div>
+                                    <div class="comment-wrap">
+                                        <span class="author-name">{{author}}</span>
+                                        <time datetime="{{YYYY-MM-DD}}" class="comment-date">{{date}}</time>
+                                        <p>{{content}} <a href="#" class="button">Read More</a></p>
+                                    </div>
+                                    <div class="comment-arrow"> </div>
+                                </div>
+                            </div>
+                        </li>
+                        {{/replies}}
+                    </ul>
+                    {{/if}}
+                </li>
+                {{/comments}}
+            </ul>
+            <form>
+                <h3>Leave a Reply</h3>
+                <input type="text" placeholder="Name" id="tb-comment-name" class="tb-comment input-tb-comment">
+                <input type="text" placeholder="Email" id="tb-comment-email" class="tb-comment input-tb-comment">
+                <textarea name="message" cols="45" rows="8" id="tb-comment-message" placeholder="Message" class="tb-comment"></textarea>
+                <a id="btn-comment-send" class="button">Send</a>
+            </form>
+        </div>
     </div>
-</article>
-<div id="sidebar">
-    <aside>
-        <h3>Последно от блога</h3>
-        <ul class="recent-blogs"></ul>
-    </aside>
-    <aside>
-        <h3>Архиви</h3>
-        <ul class="archives"></ul>
-    </aside>
-    <aside>
-        <h3>Последни постове</h3>
-        <ul class="recent-posts"></ul>
-    </aside>
-</div>
+    <div class="sidebar">
+        <aside class="sidebar-list">
+            <h4 class="related-links-title">From The Blog</h4>
+            <ul class="recent-blogs related-links">
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+            </ul>
+        </aside>
+        <aside class="sidebar-list">
+            <h4 class="related-links-title">Archives</h4>
+            <ul class="archives related-links">
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+            </ul>
+        </aside>
+        <aside class="sidebar-list">
+            <h4 class="related-links-title">Recent Posts</h4>
+            <ul class="recent-posts related-links">
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+            </ul>
+        </aside>
+    </div>
+</section>
