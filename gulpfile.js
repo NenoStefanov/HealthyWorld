@@ -20,11 +20,9 @@ const htmlreplace = require('gulp-html-replace'),
 gulp.task('copy:html', () => {
     return gulp.src('./src/client/index.html')
         .pipe(htmlreplace({
-            'css-libs': [cdns.bootstrap.css],
             'js-libs': [
                 cdns.jquery,
                 cdns.sammy,
-                cdns.bootstrap.js,
                 cdns.rxjs,
                 cdns.handlebars,
                 cdns.bluebird,
@@ -45,7 +43,7 @@ gulp.task('copy:templates', () => {
 });
 
 gulp.task('copy:fonts', () => {
-    return gulp.src('./src/client/fonts/**/*.ttf')
+    return gulp.src('./src/client/fonts/**/*.*')
         .pipe(gulp.dest('./build/prod/fonts'));
 });
 

@@ -34,6 +34,7 @@ h6 {
 }
 
 h1,
+h2,
 h3 {
   font-size: 2.33em;
 }
@@ -75,11 +76,16 @@ nav a {
   margin-top: 1.25em;
   padding: 0.17em 0.92em 0.17em 0.75em;
   border: 1px solid #eaeaea;
-  border-radius: 0.33em;
+  border-radius: 0.4em;
   background: #fff;
   font-family: 'Kreon', Arial, Verdana, sans-serif;
   color: #2c2c2c;
   line-height: 1.67em;
+}
+
+.active {
+  background-color: #f6f6f6;
+  pointer-events: none;
 }
 
 .related-links-title {
@@ -95,7 +101,6 @@ nav a {
   background: url("../images/item-bullet.png") no-repeat 0 0.83em;
   padding-left: 1.25em;
 }
-
 
 /* Header */
 
@@ -121,14 +126,14 @@ nav a {
 
 .site-title {
   display: inline-block;
-  margin-top: -0.1em;
+  margin-top: 0.2em;
   font-size: 2.4em;
   font-family: 'BlackJackRegular';
   color: #393939;
 }
 
 .slogan {
-  margin-top: -0.2em;
+  margin-top: 0.2em;
   font-size: 1.1em;
   color: #437d8b;
   text-transform: uppercase;
@@ -196,7 +201,6 @@ nav a {
 #main-nav ul li:not(:last-of-type) {
   margin-right: 1.75em;
 }
-
 
 /* Main */
 
@@ -272,9 +276,12 @@ main {
 }
 
 .post-img-container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   float: left;
-  width: 16.5em;
-  height: 16.5em;
+  width: 16.67em;
+  height: 16.67em;
   margin: 0 2.33em 1em 0;
   padding: 0.5em;
   border: 1px solid #f0f0f0;
@@ -324,7 +331,7 @@ main {
 }
 
 .author-name {
-  font-family: 'Kreon', Arial, Verdana, sans-serif; 
+  font-family: 'Kreon', Arial, Verdana, sans-serif;
   font-size: 1.67em;
   font-weight: lighter;
   color: #1d1d1d;
@@ -397,6 +404,34 @@ main {
   margin-bottom: 2.33em;
 }
 
+.category-result {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  height: 840px;
+}
+
+.post-title {
+  margin-bottom: 0.19em;
+}
+
+.category-content-wrap {
+  height: 16.7em;
+  overflow: hidden;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 2.67em;
+  right: 3.17em;
+  list-style: none;
+}
+
+.pagination li {
+  display: inline-block;
+  margin-right: 0.17em;
+}
 
 /* Footer */
 

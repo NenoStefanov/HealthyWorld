@@ -1,9 +1,13 @@
 /* globals $ */
 
+import * as paginate from '../../bower_components/handlebars-paginate/index';
+
 export class TemplatesLoader {
     constructor() {
-        this._handlebars = window.handlebars || window.Handlebars;
+        this._handlebars = window.Handlebars;
         this._cache = {};
+
+        this._handlebars.registerHelper('paginate', paginate.default);
     }
 
     get(name) {

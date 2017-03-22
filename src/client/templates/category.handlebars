@@ -1,0 +1,70 @@
+<section id="main-content" class="group">
+    <div class="content-meta">
+        <nav class="crumbs" role="navigation">
+            <ol>
+                <li>
+                    <a href="#/">Home</a>
+                </li>
+                <li>
+                    {{category.title}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <header class="content-header">
+        <h1>{{category.title}}</h1>
+        <p class="content-description">{{category.description}}</p>
+    </header>
+    </div>
+    <div class="content category-result">
+        <h2 class="post-title">{{post.title}}</h2>
+        <p class="content-info">Posted by <span class="darkgray">{{post.author}}</span> on {{post.date}} in <span class="darkgray">{{post.category}} Category</span>            | {{post.comments.length}} Comments</p>
+        <div class="content-wrap category-content-wrap">
+            <div class="post-img-container">
+                <img src="{{post.image}}" alt="Post picture" class="post-image">
+            </div>
+            <p>{{post.content}}</p>
+        </div>
+        <a href="#" class="button">Read More</a>
+        <ol class="pagination">
+            {{#paginate pagination type="middle" limit="7"}}
+            <li><a {{#if active}}class="button active" {{else}} class="button"{{/if}}>{{n}}</a></li>
+            {{/paginate}}
+        </ol>
+    </div>
+    <div class="sidebar">
+        <aside class="sidebar-list">
+            <h4 class="related-links-title">From The Blog</h4>
+            <ul class="recent-blogs related-links">
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+            </ul>
+        </aside>
+        <aside class="sidebar-list">
+            <h4 class="related-links-title">Archives</h4>
+            <ul class="archives related-links">
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+            </ul>
+        </aside>
+        <aside class="sidebar-list">
+            <h4 class="related-links-title">Recent Posts</h4>
+            <ul class="recent-posts related-links">
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+                <li><a href="#">Test Test Test Test Test Test</a></li>
+            </ul>
+        </aside>
+    </div>
+</section>

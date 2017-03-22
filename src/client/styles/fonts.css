@@ -1,23 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Kreon');
 @import url('https://fonts.googleapis.com/css?family=Kreon:300');
-
-@font-face {
-  font-family: 'Droid Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/DroidSans.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Droid Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: url('../fonts/DroidSans-Bold.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css?family=Droid+Sans');
 
 @font-face {
   font-family: "BlackJackRegular";
+  src: url("../fonts/BLACKJACK.eot?") format("eot"), url("../fonts/BLACKJACK.woff") format("woff"), url("../fonts/BLACKJACK.ttf") format("truetype"), url("../fonts/BLACKJACK.svg#BlackJackRegular") format("svg");
   font-weight: normal;
   font-style: normal;
-  src: url('../fonts/blackjack.otf') format('opentype');
 }

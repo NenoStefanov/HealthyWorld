@@ -15,9 +15,9 @@
   ],
   "dependencies": {
     "sammy": "^0.7.6",
-    "bootstrap": "^3.3.7",
     "handlebars": "^4.0.5",
-    "bluebird": "^3.5.0"
+    "bluebird": "^3.5.0",
+    "handlebars-paginate": "^0.1.0"
   },
   "devDependencies": {
     "rxjs": "^4.1.0",
