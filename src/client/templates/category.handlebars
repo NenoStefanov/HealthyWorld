@@ -20,8 +20,8 @@
         <h2 class="post-title">{{post.title}}</h2>
         <p class="content-info">Posted by <span class="darkgray">{{post.author}}</span> on {{post.date}} in <span class="darkgray">{{post.category}} Category</span>            | {{post.comments.length}} Comments</p>
         <div class="content-wrap category-content-wrap">
-            <div class="post-img-container">
-                <img src="{{post.image}}" alt="Post picture" class="post-image">
+            <div class="img-container post-img-container">
+                <img src="{{post.image}}" alt="{{post.title}}" class="post-img">
             </div>
             <p>{{post.content}}</p>
         </div>

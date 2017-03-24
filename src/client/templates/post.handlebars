@@ -22,8 +22,8 @@
     <div class="content">
         <p class="content-info">Posted by <span class="darkgray">{{author}}</span> on {{date}} in <span class="darkgray">{{category}} Category</span>            | {{comments.length}} Comments</p>
         <div class="content-wrap">
-            <div class="post-img-container">
-                <img src="{{image}}" alt="Post picture" class="post-image">
+            <div class="img-container post-img-container">
+                <img src="{{image}}" alt="{{title}}" class="post-img">
             </div>
             <p>{{content}}</p>
         </div>
@@ -35,7 +35,7 @@
                     <div class="comment">
                         <div class="comment-body group">
                             <div class="author-img-container">
-                                <img src="{{authorImg}}" alt="Picture of comment author" class="author-img">
+                                <img src="{{authorImg}}" alt="{{author}}" class="author-img">
                             </div>
                             <div class="comment-wrap">
                                 <span class="author-name">{{author}}</span>
@@ -51,7 +51,7 @@
                             <div class="comment inner-comment">
                                 <div class="comment-body group">
                                     <div class="author-img-container">
-                                        <img src="{{authorImg}}" alt="Picture of comment author" class="author-img">
+                                        <img src="{{authorImg}}" alt="{{author}}" class="author-img">
                                     </div>
                                     <div class="comment-wrap">
                                         <span class="author-name">{{author}}</span>
