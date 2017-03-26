@@ -16,55 +16,81 @@
         <p class="content-description">{{category.description}}</p>
     </header>
     </div>
-    <div class="content category-result">
-        <h2 class="post-title">{{post.title}}</h2>
-        <p class="content-info">Posted by <span class="darkgray">{{post.author}}</span> on {{post.date}} in <span class="darkgray">{{post.category}} Category</span>            | {{post.comments.length}} Comments</p>
-        <div class="content-wrap category-content-wrap">
-            <div class="img-container post-img-container">
-                <img src="{{post.image}}" alt="{{post.title}}" class="post-img">
+    <div class="container group">
+        <div class="content">
+            <div class="category-post">
+                <h2 class="post-title">{{post.title}}</h2>
+                <p class="content-info">Posted by <span class="darkgray">{{post.author}}</span> on {{post.date}} <wrb> in <span class="darkgray no-break">{{post.category}} Category</span> | <span class="no-break">{{post.comments.length}} Comments</p>
+                <div class="content-wrap category-content-wrap">
+                    <div class="img-container post-img-container">
+                        <img src="{{post.image}}" alt="{{post.title}}" class="post-img" width="186" height="186">
+                    </div>
+                    <p>{{post.content}}</p>
+                </div>
+                <a href="#" class="button">Read More</a>
             </div>
-            <p>{{post.content}}</p>
+            <div class="category-post">
+                <h2 class="post-title">{{post.title}}</h2>
+                <p class="content-info">Posted by <span class="darkgray">{{post.author}}</span> on {{post.date}} in <span class="darkgray no-break">{{post.category}} Category</span> | <span class="no-break">{{post.comments.length}} Comments</span></p>
+                <div class="content-wrap category-content-wrap">
+                    <div class="img-container post-img-container">
+                        <img src="{{post.image}}" alt="{{post.title}}" class="post-img" width="186" height="186">
+                    </div>
+                    <p>{{post.content}}</p>
+                </div>
+                <a href="#" class="button">Read More</a>
+            </div>
+            <div class="category-post category-last-post">
+                <h2 class="post-title">{{post.title}}</h2>
+                <p class="content-info">Posted by <span class="darkgray">{{post.author}}</span> on {{post.date}} <wrb> in <span class="darkgray no-break">{{post.category}} Category</span> | <span class="no-break">{{post.comments.length}} Comments</p>
+                <div class="content-wrap category-content-wrap">
+                    <div class="img-container post-img-container">
+                        <img src="{{post.image}}" alt="{{post.title}}" class="post-img" width="186" height="186">
+                    </div>
+                    <p>{{post.content}}</p>
+                </div>
+                <a href="#" class="button">Read More</a>
+            </div>
+            <ol class="pagination">
+                {{#paginate pagination type="middle" limit="7"}}
+                <li><a {{#if active}}class="button active" {{else}} class="button" {{/if}}>{{n}}</a></li>
+                {{/paginate}}
+            </ol>
         </div>
-        <a href="#" class="button">Read More</a>
-        <ol class="pagination">
-            {{#paginate pagination type="middle" limit="7"}}
-            <li><a {{#if active}}class="button active" {{else}} class="button"{{/if}}>{{n}}</a></li>
-            {{/paginate}}
-        </ol>
-    </div>
-    <div class="sidebar">
-        <aside class="sidebar-list">
-            <h4 class="related-links-title">From The Blog</h4>
-            <ul class="recent-blogs related-links">
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-            </ul>
-        </aside>
-        <aside class="sidebar-list">
-            <h4 class="related-links-title">Archives</h4>
-            <ul class="archives related-links">
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-            </ul>
-        </aside>
-        <aside class="sidebar-list">
-            <h4 class="related-links-title">Recent Posts</h4>
-            <ul class="recent-posts related-links">
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-            </ul>
-        </aside>
+        <div class="sidebar">
+            <aside class="sidebar-list">
+                <h4 class="related-links-title">From The Blog</h4>
+                <ul class="recent-blogs related-links">
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                </ul>
+            </aside>
+            <aside class="sidebar-list">
+                <h4 class="related-links-title">Archives</h4>
+                <ul class="archives related-links">
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                </ul>
+            </aside>
+            <aside class="sidebar-list">
+                <h4 class="related-links-title">Recent Posts</h4>
+                <ul class="recent-posts related-links">
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                    <li><a href="#">Test Test Test Test Test Test</a></li>
+                </ul>
+            </aside>
+        </div>
     </div>
 </section>
