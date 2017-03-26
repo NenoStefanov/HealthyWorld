@@ -31,7 +31,7 @@ gulp.task('copy:html', () => {
                 cdns.firebase.database,
                 cdns.firebase.storage
             ],
-            'css-app': 'styles.min.css',
+            'css-app': 'css/styles.min.css',
             'js-app': 'js/app.min.js'
         }))
         .pipe(gulp.dest('./build/prod'));
@@ -109,7 +109,7 @@ gulp.task('compile:css', () => {
     return gulp.src('./src/client/styles/**/*.css')
         .pipe(concatCss('styles.min.css'))
         .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(gulp.dest('./build/prod'));
+        .pipe(gulp.dest('./build/prod/css'));
 });
 
 gulp.task('compile:dev', ['compile:js:dev']);
