@@ -88,7 +88,7 @@ const browserify = require('browserify'),
     cleanCSS = require('gulp-clean-css');
 
 gulp.task('compile:js:dev', () => {
-    return browserify({ entries: './src/client/scripts/app.js', debug: true })
+    return browserify({ entries: './src/client/scripts/main.js', debug: true })
         .transform('babelify', { presets: ['es2015'] })
         .bundle()
         .pipe(source('app.js'))
@@ -96,7 +96,7 @@ gulp.task('compile:js:dev', () => {
 });
 
 gulp.task('compile:js', () => {
-    return browserify({ entries: './src/client/scripts/app.js', debug: true })
+    return browserify({ entries: './src/client/scripts/main.js', debug: true })
         .transform('babelify', { presets: ['es2015'] })
         .bundle()
         .pipe(source('app.min.js'))

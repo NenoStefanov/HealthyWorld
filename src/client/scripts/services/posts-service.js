@@ -1,8 +1,8 @@
 /* globals Rx */
 
 export class PostsService {
-    constructor(postsUrl, authService, dataService, usersService, keyGenerator) {
-        this.postsUrl = postsUrl;
+    constructor({authService, dataService, usersService}, {keyGenerator}) {
+        this.postsUrl = 'posts';
         this._authService = authService;
         this._dataService = dataService;
         this._usersService = usersService;
@@ -95,6 +95,13 @@ export class PostsService {
         };
 
         return this._dataService.getList(this.postsUrl, query);
+    }
+
+    findPostByCategory(category) {
+        let url = `${this.postsUrl}PerCategory/${category}`;
+
+        return this._dataService.getList(url)
+            .map(keys => keys.map(keyObj => keyObj.$key));
     }
 
     findPostsByUserKey(userKey) {

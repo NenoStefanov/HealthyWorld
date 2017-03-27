@@ -1,7 +1,24 @@
 /* globals Sammy */
 
-export const router = Sammy('#content', function() {
-    this.get('#/', function(context) {
-        context.$element().html('App Works');
-    });
-});
+export class Router {
+    constructor({
+        authController,
+        categoriesController,
+        mainController,
+        postsController,
+        usersController
+    }) {
+        this._router = Sammy('main', function() {
+            this.get('#/', function() {
+                this.redirect('#/home');
+            });
+            this.get('#/home', function(context) {
+                // context.$element().html('App Works');
+            });
+        });
+    }
+
+    run(url) {
+        this._router.run(url);
+    }
+}

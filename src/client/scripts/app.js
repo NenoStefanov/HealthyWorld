@@ -1,19 +1,26 @@
-/* globals firebase */
+/* globals firebase  $ */
 
-import { AuthService } from './services/auth-service';
-import { DataService } from './services/data-service';
+import { ControllersFactory } from './controllers';
 import { firebaseConfig } from './environments/firebase-config';
-import { KeyGenerator } from './utils/key-generator';
-import { PostsService } from './services/posts-service';
-import { router } from './router';
-import { UsersService } from './services/users-service';
+import { Router } from './router';
+import { ServicesFactory } from './services';
+import { UtilsFactory } from './utils';
 
+export class App {
+    constructor() {
+        this._firebaseApp = firebase.initializeApp(firebaseConfig);
+        this._utils = new UtilsFactory().getAll();
+        this._services = new ServicesFactory(this._firebaseApp, this._utils).getAll();
+        this._controllers = new ControllersFactory(this._services, this._utils).getAll();
+        this._router = new Router(this._controllers);
+}
 
-const firebaseApp = firebase.initializeApp(firebaseConfig),
-    dataService = new DataService(firebaseApp),
-    authService = new AuthService(firebaseApp),
-    usersService = new UsersService(dataService),
-    keyGenerator = new KeyGenerator(),
-    postsService = new PostsService(authService, dataService, usersService, keyGenerator);
+    initialize() {
+        this._utils.templatesLoader.get('home')
+            .then(template => {
+                $('main').html(template());
+            });
 
-router.run('#/');
+        this._router.run('#/home');
+    }
+}
