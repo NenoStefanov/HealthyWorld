@@ -10,7 +10,7 @@ gulp.task('clean:dev', () => {
 });
 
 gulp.task('clean', () => {
-    return del(['./build/prod']);
+    return del(['./docs']);
 });
 
 // copy
@@ -34,22 +34,22 @@ gulp.task('copy:html', () => {
             'css-app': 'css/styles.min.css',
             'js-app': 'js/app.min.js'
         }))
-        .pipe(gulp.dest('./build/prod'));
+        .pipe(gulp.dest('./docs'));
 });
 
 gulp.task('copy:templates', () => {
     return gulp.src('./src/client/templates/**/*.handlebars')
-        .pipe(gulp.dest('./build/prod/templates'));
+        .pipe(gulp.dest('./docs/templates'));
 });
 
 gulp.task('copy:fonts', () => {
     return gulp.src('./src/client/fonts/**/*.*')
-        .pipe(gulp.dest('./build/prod/fonts'));
+        .pipe(gulp.dest('./docs/fonts'));
 });
 
 gulp.task('copy:images', () => {
     return gulp.src('./src/client/images/**/*.{png,gif,jpg}')
-        .pipe(gulp.dest('./build/prod/images'));
+        .pipe(gulp.dest('./docs/images'));
 });
 
 gulp.task('copy', gulpsync.sync(['copy:html', 'copy:templates', 'copy:fonts', 'copy:images']));
@@ -102,14 +102,14 @@ gulp.task('compile:js', () => {
         .pipe(source('app.min.js'))
         .pipe(buffer())
         .pipe(uglify())
-        .pipe(gulp.dest('./build/prod/js'));
+        .pipe(gulp.dest('./docs/js'));
 });
 
 gulp.task('compile:css', () => {
     return gulp.src('./src/client/styles/**/*.css')
         .pipe(concatCss('styles.min.css'))
         .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(gulp.dest('./build/prod/css'));
+        .pipe(gulp.dest('./docs/css'));
 });
 
 gulp.task('compile:dev', ['compile:js:dev']);
@@ -141,7 +141,7 @@ gulp.task('serve:dev', ['build:dev'], () => {
 });
 
 gulp.task('serve', ['build'], () => {
-    const server = gls.static('./build/prod', 3000);
+    const server = gls.static('./docs', 3000);
     server.start();
 
     gulp.watch(['./src/client/**/*.*', './build/dev/**/*.*'], file => {

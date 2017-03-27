@@ -1,7 +1,7 @@
 /* globals Rx */
 
 export class PostsService {
-    constructor({authService, dataService, usersService}, {keyGenerator}) {
+    constructor({ authService, dataService, usersService }, { keyGenerator }) {
         this.postsUrl = 'posts';
         this._authService = authService;
         this._dataService = dataService;
@@ -9,13 +9,7 @@ export class PostsService {
         this._keyGenerator = keyGenerator;
     }
 
-    _findPostsByKeys(postsKeys$) {
-        return postsKeys$
-            .map(keys => keys.map(key => this.findPostByKey(key)))
-            .flatMap(fbojs => Rx.Observable.combineLatest(fbojs));
-    }
-
-    _findPostKeysByUserKey(userKey) {
+    _findPostsKeysByUserKey(userKey) {
         let url = `${this.postsUrl}PerUser/${userKey}`;
 
         return this._dataService.getList(url)
@@ -28,22 +22,55 @@ export class PostsService {
 
         return this._usersService.getUserByKey(userId)
             .first()
-            .map(user => user.name)
-            .map(username => {
+            // Set post info
+            .map(user => {
                 post.userId = userId;
-                post.username = username;
+                post.username = user.name;
                 post.added = currentDate;
             })
+            // Save the post
             .map(() => {
                 return this._dataService.save(this.postsUrl, post);
             })
+            // Add postKey in postsPerCategory collection
             .map(newPost => {
-                let userPostsUrl = `${this.postsUrl}PerUser/${userId}`,
-                    newPostKey = newPost.key,
-                    postPerUser = {};
+                let newPostKey = newPost.key,
+                    postPerCategory = `${this.postsUrl}PerCategory/${post.category}/${newPostKey}`;
+                
+                this._dataService.update(postPerCategory);
 
-                postPerUser[newPostKey] = true;
-                this._dataService.update(userPostsUrl, postPerUser);
+                return newPostKey;
+            })
+            // Add postKey in postsPerUser collection
+            .map(newPostKey => {
+                let postPerUser = `${this.postsUrl}PerUser/${userId}/${newPostKey}`;
+                this._dataService.update(postPerUser);
+
+                return newPostKey;
+            })
+            // Add post in recentPosts collection
+            .map(newPostKey => {
+                let recentPost = `recentPosts/${newPostKey}`;
+
+                this._dataService.update(recentPost, post.title);
+
+                return newPostKey;
+            })
+            // Add post media in media collection
+            .map(newPostKey => {
+                if (post.imageUrl) {
+                    let mediaUrl = `media/${newPostKey}`;
+
+                    let media = {
+                        type: 'img',
+                        desc: post.desc,
+                        url: post.imageUrl
+                    };
+
+                    this._dataService.update(mediaUrl, media);
+                }
+
+                return newPostKey;
             })
             .toPromise();
     }
@@ -62,7 +89,7 @@ export class PostsService {
                 .then(() => this._savePost(post));
         }
 
-        return this._savePost(this.postsUrl, post);
+        return this._savePost(post);
     }
 
     updatePost(post, newData, newImage) {
@@ -72,7 +99,7 @@ export class PostsService {
 
         if (newImage) {
             return this._savePostImage(newImage)
-                .then(imageUrl => { newData.image = imageUrl; })
+                .then(imageUrl => { newData.imageUrl = imageUrl; })
                 .then(() => this._dataService.update(url, newData));
         }
 
@@ -85,19 +112,57 @@ export class PostsService {
         return this._dataService.getObject(url);
     }
 
-    findAllPosts() {
+    findPostsByKeys(postsKeys$) {
+        console.log(postsKeys$);
+        if (Array.isArray(postsKeys$)) {
+            postsKeys$ = Rx.Observable.of(postsKeys$);
+        }
+
+        return postsKeys$
+            .map(keys => keys.map(key => this.findPostByKey(key)))
+            .flatMap(fbojs => Rx.Observable.combineLatest(fbojs));
+    }
+
+    findPostsByTitle(str) {
+        return this._dataService.getList('recentPosts')
+            .map(posts => {
+                return posts
+                    .filter(p => p.val.toLowerCase().indexOf(str) > -1)
+                    .map(p => p.$key);
+        })
+        .flatMap(postsKeys => this.findPostsByKeys(postsKeys));
+        
+    }
+
+    findAllPosts(limit) {
+        if (limit) {
+            let query = {
+                limitToLast: limit
+            };
+
+            return this._dataService.getList(this.postsUrl, query);
+        }
+
         return this._dataService.getList(this.postsUrl);
     }
 
-    findLastestsPosts(count = 12) {
+    findFirstPosts(count = 6) {
+        let query = {
+            limitToFirst: count
+        };
+
+        return this._dataService.getList('recentPosts', query);
+    }
+
+    findLastPosts(count = 6) {
         let query = {
             limitToLast: count
         };
 
-        return this._dataService.getList(this.postsUrl, query);
+        return this._dataService.getList('recentPosts', query);
     }
 
-    findPostByCategory(category) {
+    findPostsKeysByCategory(category) {
         let url = `${this.postsUrl}PerCategory/${category}`;
 
         return this._dataService.getList(url)
@@ -105,6 +170,6 @@ export class PostsService {
     }
 
     findPostsByUserKey(userKey) {
-        return this._findPostsByKeys(this._findPostKeysByUserKey(userKey));
+        return this.findPostsByKeys(this._findPostsKeysByUserKey(userKey));
     }
 }
