@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $ Rx */
 
 import * as paginate from '../../bower_components/handlebars-paginate/index';
 
@@ -11,20 +11,18 @@ export class TemplatesLoader {
     }
 
     get(name) {
-        var promise = new Promise((resolve, reject) => {
+        return Rx.Observable.create(observer => {
             if (this._cache[name]) {
-                resolve(this._cache[name]);
-                return;
+                observer.next(this._cache[name]);
+            } else {
+                var url = `templates/${name}.handlebars`;
+                $.get(url, (html) => {
+                        var template = this._handlebars.compile(html);
+                        this._cache[name] = template;
+                        observer.next(template);
+                    })
+                    .fail(() => console.log('err'));
             }
-            
-            var url = `templates/${name}.handlebars`;
-            $.get(url, (html) => {
-                    var template = this._handlebars.compile(html);
-                    this._cache[name] = template;
-                    resolve(template);
-                })
-                .fail(() => reject('Cannot load the template'));
         });
-        return promise;
     }
 }

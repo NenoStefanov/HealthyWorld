@@ -51,27 +51,21 @@
 
     <link rel="stylesheet" href="css/styles.min.css">
 
-
-
-    <!-- the below three lines are a fix to get HTML5 semantic elements working in old versions of Internet Explorer-->
-    <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 </head>
 
 <body>
     <header id="main-header">
         <div class="site-logo">
-            <a href="#">
+            <a href="#/home">
                 <img src="./images/site-logo.png" alt="Site logo" class="logo-img">
             </a>
-            <a href="#" class="site-title">Healthy World</a>
-            <p class="slogan">Some kind of slogan here</p>
+            <a href="#/home" class="site-title">Healthy World</a>
+            <p class="slogan">Good Health, Good Life</p>
         </div>
         <div class="additional-info">
             <form id="form-search" role="search">
                 <input type="search" placeholder="Search this site..." id="tb-search">
-                <input type="image" src="./images/search.png" id="btn-search">
+                <a id="btn-search"></a>
             </form>
             <div class="social-links">
                 <a href="#"><img src="./images/twitter.png" alt="Twitter logo" class="social-img twitter-img"></a>
@@ -81,32 +75,45 @@
         </div>
         <nav id="main-nav" role="navigation">
             <ul>
-                <li><a href="#" class="selected">Home</a></li>
-                <li><a href="#">Blog</a></li>
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/posts/all">Blog</a></li>
                 <li class="btn-sub-menu">
                     <a href="#">Categories</a>
                     <ul class="sub-menu">
-                        <li><a href="#">Sport</a></li>
-                        <li><a href="#">Food</a></li>
-                        <li><a href="#">Health</a></li>
+                        <li><a href="#/categories/sport/1">Sport</a></li>
+                        <li><a href="#/categories/food/1">Food</a></li>
+                        <li><a href="#/categories/health/1">Health</a></li>
                     </ul>
                 </li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Login</a></li>
-                <li style="display: none"><a href="#">Logout</a></li>
+                <li class="btn-auth"><a href="#/auth/login">Login</a></li>
+                <li class="btn-auth"><a href="#/auth/register">Register</a></li>
+                <li id="user-nav" class="btn-sub-menu">
+                    <a href="#">User</a>
+                    <ul class="sub-menu">
+                        <li><a href="#/user/profile">Profile</a></li>
+                        <li><a href="#/user/posts">Posts</a></li>
+                        <li><a href="#/auth/logout">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <nav id="mobile-nav" role="navigation">
             <a href="#" id="btn-mobile-nav"><span class="mobile-nav-arrow"></span>Navigation</a>
             <ul>
-                <li><a href="#" class="selected">Home</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Sport</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Health</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Login</a></li>
-                <li style="display: none"><a href="#">Logout</a></li>
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/posts/all">Blog</a></li>
+                <li><a href="#/categories/sport/1">Sport</a></li>
+                <li><a href="#/categories/food/1">Food</a></li>
+                <li><a href="#/categories/health/1">Health</a></li>
+                <li><a class="btn-auth" href="#">Register</a></li>
+                <li><a class="btn-auth" href="#">Login</a></li>
+                <li id="mobile-user-nav">
+                    <ul>
+                        <li><a href="#/user/profile">Profile</a></li>
+                        <li><a href="#/user/posts">Posts</a></li>
+                        <li><a href="#/auth/logout">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -120,36 +127,19 @@
     <footer id="main-footer">
         <div class="footer-col">
             <p><img src="./images/full-logo.png" alt="Healthy World - some kind of slogan here"></p>
-            <p>Curabitur blandit retrum pharetra. Donec dictum felis eu eros pre- tium vulputate.Etiam quis nulla ac turpis molestie tempus et in purus. Etiam quis nulla ac turpis molestie tempus et in purus. Etiam quis nulla ac turpis molestie tempus et
-                in purus.
-            </p>
+            <p>Curabitur blandit retrum pharetra. Donec dictum felis eu eros pre- tium vulputate.Etiam quis nulla ac turpis molestie tempus et in purus.</p>
         </div>
         <div class="footer-col">
             <h4 class="related-links-title">Recent Posts</h4>
-            <ul class="recent-posts related-links">
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-            </ul>
+            <ul class="recent-posts related-links"></ul>
         </div>
         <div class="footer-col">
             <h4 class="related-links-title">Text Widget</h4>
-            <p>Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test
-            </p>
+            <p>Pellentesque sodales odio nec justo bibendum vitae porttitor metus luctus. Nulla volutpat, arcu in convallis imperdiet, arcu velit auctor purus, a rutrum nunc neque at elit.</p>
         </div>
         <div class="footer-col">
             <h4 class="related-links-title">Recent Comments</h4>
-            <ul class="recent-comments related-links">
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-            </ul>
+            <ul class="archives related-links"></ul>
         </div>
         <div class="footer-copyright">
             <p>Designed by <a href="http://www.elegantthemes.com/" title=" Ultimate WordPress Toolkit For Web Design" class="copyright-link">Elegant WordPress Themes</a> | Powered by <a href="https://bg.wordpress.org/" class="copyright-link">WordPress</a></p>

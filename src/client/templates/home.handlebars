@@ -1,10 +1,11 @@
 <header id="home-header">
     <nav role="navigation">
         <ul>
-            <li><a href="#" class="selected">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="#/home">Home</a></li>
+            <li><a href="#/posts/all">Blog</a></li>
+            <li><a href="#/categories/sport/1">Sport</a></li>
+            <li><a href="#/categories/food/1">Food</a></li>
+            <li><a href="#/categories/health/1">Health</a></li>
         </ul>
         <div id="header-shadow-layer1"></div>
         <div id="header-shadow-layer2"></div>
@@ -13,19 +14,18 @@
 <section id="slider">
     <div class="slides-wrap">
         <ul>
+            {{#posts}}
             <li class="slide">
-                <img src="./images/test.png" alt="{{title}}" width="960" height="332" class="slide-img">
+                <img src="{{imageUrl}}" alt="{{title}}" width="960" height="332" class="slide-img">
                 <div class="slide-description">
-                    <h2 class="slide-title">Your Post Title Goes Right Over Here</h2>
-                    <p class="slide-content">Corabitur blandit reutrn felis pretium Corabitur blandit reutrn felis pretium Corabitur blandit reutrn
-                        felis pretium Corabitur blandit reutrn felis pretium Corabitur blandit reutrn felis pretium Corabitur
-                        blandit reutrn felis pretium Corabitur blandit reutrn felis pretium Corabitur blandit reutrn felis
-                        pretium Corabitur blandit reutrn felis pretium Corabitur blandit reutrn felis pretium </p>
-                    <a href="#" class="button">Read More</a>
+                    <h2 class="slide-title">{{title}}</h2>
+                    <p class="slide-content">{{content}}</p>
+                    <a href="#/posts/{{$key}}" class="button">Read More</a>
                 </div>
                 <div class="slide-top-shadow"></div>
                 <div class="slide-bottom-shadow"></div>
             </li>
+            {{/posts}}
         </ul>
         <ul class="slider-nav">
             <li><a href="#" class="slider-prev">Prev</a></li>
@@ -36,113 +36,43 @@
         <li><a href="#" class="active">1</a></li>
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
     </ol>
 </section>
 <section id="main-content" class="group">
     <header class="content-header home-content-header">
-        <h1>"Chameleon is an extremely versatile theme witha myriad of options and styles"</h1>
+        <h1>"Healthy World is a site where you can find useful materials about healthy lifestyle"</h1>
         <p class="content-description">Aliquam venenatis enim in mi iaculis in tempor lectus tempor et convallis erat pellentesque</p>
     </header>
     <div class="previews group">
+        {{#posts}}
         <article class="preview">
-            <h2 class="preview-title">Some Information Here</h2>
+            <h2 class="preview-title">title</h2>
             <div class="img-container preview-img-container">
-                <img src="./images/t-1.png" alt="" class="post-img preview-img">
+                <img src="{{imageUrl}}" alt="{{title}}" class="post-img preview-img" width="800px" height="800px">
                 <span class="preview-hover-icon"></span>
             </div>
-            <p class="preview-content">Aliquam eleifend lacus ac tellus volutpat porttitor. Suspendisse imperdiet tortor ut tortor bibendum pulvinar.</p>
+            <p class="preview-content">{{content}}</p>
         </article>
-        <article class="preview">
-            <h2 class="preview-title">Some Information Here</h2>
-            <div class="img-container preview-img-container">
-                <img src="./images/t-2.png" alt="" class="post-img preview-img">
-                <span class="preview-hover-icon"></span>
-            </div>
-            <p class="preview-content">Aliquam eleifend lacus ac tellus volutpat porttitor. Suspendisse imperdiet tortor ut tortor bibendum pulvAliquam
-                eleifend lacus ac tellus volutpat porttitor. Suspendisse imperdiet tortor ut tortor bibendum pulvinar.inar.Aliquam
-                eleifend lacus ac tellus volutpat porttitor. Suspendisse imperdiet tortor ut tortor bibendum pulvinar.</p>
-        </article>
-        <article class="preview">
-            <h2 class="preview-title">Some Information Here</h2>
-            <div class="img-container preview-img-container">
-                <img src="./images/t-3.png" alt="" class="post-img preview-img">
-                <span class="preview-hover-icon"></span>
-            </div>
-            <p class="preview-content">Aliquam eleifend lacus ac tellus volutpat porttitor. Suspendisse imperdiet tortor ut tortor bibendum pulvinar.</p>
-        </article>
+        {{/posts}}
     </div>
     <div class="home-related">
         <aside class="home-aside home-aside-list">
             <h4 class="related-links-title">From The Blog</h4>
-            <ul class="recent-posts related-links">
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-                <li><a href="#">Test Test Test Test Test Test</a></li>
-            </ul>
+            <ul class="recent-posts related-links"></ul>
         </aside>
         <aside class="home-aside">
             <h4 class="related-links-title">Multi-Media Bar</h4>
             <div id="multi-media-bar" class="group">
+                {{#media}}
                 <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
+                    <img src="{{url}}" alt="{{desc}}" class="post-img media-img">
                     <span class="media-hover-icon"></span>
                     <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
+                        <p>{{desc}}</p>
                         <span class="media-arrow"></span>
                     </div>
                 </div>
-                <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
-                    <span class="media-hover-icon"></span>
-                    <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
-                        <span class="media-arrow"></span>
-                    </div>
-                </div>
-                <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
-                    <span class="media-hover-icon media-hover-video-icon"></span>
-                    <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
-                        <span class="media-arrow"></span>
-                    </div>
-                </div>
-                <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
-                    <span class="media-hover-icon"></span>
-                    <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
-                        <span class="media-arrow"></span>
-                    </div>
-                </div>
-                <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
-                    <span class="media-hover-icon"></span>
-                    <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
-                        <span class="media-arrow"></span>
-                    </div>
-                </div>
-                <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
-                    <span class="media-hover-icon media-hover-video-icon"></span>
-                    <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
-                        <span class="media-arrow"></span>
-                    </div>
-                </div>
-                <div class="img-container media-img-container">
-                    <img src="../images/t-4.jpg" alt="asdsadsadasdadas" class="post-img media-img">
-                    <span class="media-hover-icon"></span>
-                    <div class="media-description">
-                        <p>Donec sed metus ipsum, laoreet suscipit purus. Fusce ante lorem, luctus et tincidunt...</p>
-                        <span class="media-arrow"></span>
-                    </div>
-                </div>
+                {{/media}}
                 <ul class="media-nav">
                     <li><a href="#" class="media-prev">Prev</a></li>
                     <li><a href="#" class="media-next">Next</a></li>

@@ -19,6 +19,7 @@ export class App {
         this.setNavigation();
         this.setRelatedLinks();
         this.addEventListeners();
+
         this._router.run('#/home');
     }
 
@@ -43,16 +44,22 @@ export class App {
     }
 
     setRelatedLinks() {
-        let $recentPosts = $('.recent-posts'),
-            $archives = $('.archives');
-
-        this._services.postsService.findLastPosts()
-            .map(posts => createRelatedItems(posts))
-            .subscribe(items => $recentPosts.append(items));
+        let $recentPosts = $('#main-footer .recent-posts'),
+            $archives = $('#main-footer .archives');
 
         this._services.postsService.findFirstPosts()
             .map(posts => createRelatedItems(posts))
-            .subscribe(items => $archives.append(items));
+            .subscribe($items => {
+                window.$recentPosts = $items;
+                $recentPosts.append($items.clone());
+            });
+
+        this._services.postsService.findLastPosts()
+            .map(posts => createRelatedItems(posts))
+            .subscribe($items => {
+                window.$archives = $items;
+                $archives.append($items.clone());
+            });
 
         function createRelatedItems(posts) {
             let $documentFragment = $(document.createDocumentFragment());

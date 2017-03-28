@@ -3,7 +3,6 @@
 export class Router {
     constructor({
         authController,
-        categoriesController,
         mainController,
         postsController,
         usersController
@@ -12,26 +11,26 @@ export class Router {
             this.get('#/', function() {
                 this.redirect('#/home');
             });
-            this.get('#/home', mainController.getHome);
+            this.get('#/home', context => mainController.getHome(context));
 
             // User
-            this.get('#/user/profile', usersController.getProfile);
-            this.get('#/user/posts', usersController.getPosts);
+            this.get('#/user/profile', context => usersController.getProfile(context));
+            this.get('#/user/posts', context => usersController.getPosts(context));
 
             // Auth
-            this.get('#/auth/register', authController.register);
-            this.get('#/auth/login', authController.login);
-            this.get('#/auth/logout', authController.logout);
+            this.get('#/auth/register', context => authController.register(context));
+            this.get('#/auth/login', context => authController.login(context));
+            this.get('#/auth/logout', context => authController.logout(context));
 
             // Posts
-            this.get('#/posts', postsController.getByTitle);
-            this.get('#/posts/all', postsController.getAll);
-            this.get('#/posts/add', postsController.add);
-            this.get('#/posts/update', postsController.update);
-            this.get('#/posts/:id', postsController.get);
+            this.get('#/posts', context => postsController.getByTitle(context));
+            this.get('#/posts/all', context => postsController.getAll(context));
+            this.get('#/posts/add', context => postsController.add(context));
+            this.get('#/posts/update', context => postsController.update(context));
+            this.get('#/posts/:id', context => postsController.get(context));
 
             // Cagetory
-            this.get('#/categories/:category', postsController.getByCategory);
+            this.get('#/categories/:category/:page', context => postsController.getByCategory(context));
         });
     }
 

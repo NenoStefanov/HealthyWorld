@@ -459,6 +459,7 @@ main {
 
 .slide-img {
   max-width: 100%;
+  max-height: 27.67em;
   height: auto;
 }
 

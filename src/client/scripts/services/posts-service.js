@@ -112,8 +112,7 @@ export class PostsService {
         return this._dataService.getObject(url);
     }
 
-    findPostsByKeys(postsKeys$) {
-        console.log(postsKeys$);
+    findPostsByKeys(postsKeys$) {    
         if (Array.isArray(postsKeys$)) {
             postsKeys$ = Rx.Observable.of(postsKeys$);
         }
