@@ -156,7 +156,7 @@ nav li:hover {
 
 .logo-img {
   float: left;
-  margin-right: 1em;
+  margin: 0 1em 0.42em 0;
 }
 
 .site-title {
@@ -168,7 +168,6 @@ nav li:hover {
 }
 
 .slogan {
-  margin-top: 0.2em;
   font-size: 1.1em;
   color: #437d8b;
   text-transform: uppercase;
@@ -202,6 +201,7 @@ nav li:hover {
   right: 0.75em;
   width: 1em;
   height: 1.16em;
+  background: url("../images/search.png");
 }
 
 .social-links {
@@ -318,6 +318,10 @@ nav > ul > li:not(:last-of-type) {
   display: block;
   margin: 0;
   padding: 0.5em 0;
+}
+
+#mobile-user-nav {
+  border-top: 3px solid #eaeaea;
 }
 
 /* Content */
@@ -571,7 +575,7 @@ main {
   margin: 0.4em 0 1.5em;
   padding: 0.25em;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .preview-img,
@@ -910,6 +914,7 @@ main {
 }
 
 .footer-col .related-links li {
+  margin-bottom: 0.42em;
   background-position-y: 0.58em;
 }
 

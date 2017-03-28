@@ -1,8 +1,9 @@
-/* globals $ */
+/* globals $ app */
 
 import { App } from './app';
 
+const app = new App();
+
 $(document).ready(() => {
-    const app = new App();
     app.initialize();
 });

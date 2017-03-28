@@ -12,9 +12,26 @@ export class Router {
             this.get('#/', function() {
                 this.redirect('#/home');
             });
-            this.get('#/home', function(context) {
-                // context.$element().html('App Works');
-            });
+            this.get('#/home', mainController.getHome);
+
+            // User
+            this.get('#/user/profile', usersController.getProfile);
+            this.get('#/user/posts', usersController.getPosts);
+
+            // Auth
+            this.get('#/auth/register', authController.register);
+            this.get('#/auth/login', authController.login);
+            this.get('#/auth/logout', authController.logout);
+
+            // Posts
+            this.get('#/posts', postsController.getByTitle);
+            this.get('#/posts/all', postsController.getAll);
+            this.get('#/posts/add', postsController.add);
+            this.get('#/posts/update', postsController.update);
+            this.get('#/posts/:id', postsController.get);
+
+            // Cagetory
+            this.get('#/categories/:category', postsController.getByCategory);
         });
     }
 
