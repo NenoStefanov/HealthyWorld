@@ -48,8 +48,10 @@
         <article class="preview">
             <h2 class="preview-title">{{title}}</h2>
             <div class="img-container preview-img-container">
-                <img src="{{imageUrl}}" alt="{{title}}" class="post-img preview-img" width="800px" height="800px">
-                <span class="preview-hover-icon"></span>
+                <a href="#/posts/{{$key}}">
+                    <img src="{{imageUrl}}" alt="{{title}}" class="post-img preview-img" width="800px" height="800px">
+                    <span class="preview-hover-icon"></span>
+                </a>
             </div>
             <p class="preview-content">{{content}}</p>
         </article>
