@@ -17,7 +17,7 @@ export class MainController {
                 return this._postsService.findAllPosts(3);
             })
             .flatMap(res => {
-                posts = res;
+                posts = res.map(p => p.val);
                 return this._dataService.getList('media', { limitToFirst: 7 });
             })
             .map(media => {
