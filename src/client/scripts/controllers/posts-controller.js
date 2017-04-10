@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $ Rx */
 
 export class PostsController {
     constructor({ postsService }, { templatesLoader }) {
@@ -10,58 +10,67 @@ export class PostsController {
         return {
             sport: {
                 name: 'Sport',
-                desc: 'Sport description'
+                desc: 'All sport posts'
             },
             food: {
                 name: 'Food',
-                desc: 'Food description'
+                desc: 'All food posts'
             },
             health: {
                 name: 'Health',
-                desc: 'Health description'
+                desc: 'All health posts'
             }
         };
     }
 
     get(context) {
-        let template;
-        this._templatesLoader.get('post')
-            .flatMap(temp => {
-                template = temp;
-                return this._postsService.findPostByKey(context.params.id);
-            })
-            .map(post => {
-                context.$element().html(template(post));
-            })
-            .subscribe(() => {
-                let $recentPosts = $('.sidebar .recent-posts'),
-                    $archives = $('.sidebar .archives');
+        const postId = context.params.id;
 
-                $recentPosts.append(window.$recentPosts);
-                $archives.append(window.$archives);
+        Rx.Observable.combineLatest([
+                this._templatesLoader.get('post'),
+                this._postsService.findPostByKey(postId),
+                window.recentPosts$,
+                window.archives$
+            ])
+            .subscribe(res => {
+                let template = res[0],
+                    post = res[1],
+                    categoryName = this._categories[post.category].name,
+                    recentPosts = res[2],
+                    archives = res[3];
+
+                context.$element().html(template({ post, categoryName, recentPosts, archives }));
             });
     }
 
     getByCategory(context) {
         const categoryName = context.params.category,
-            postsPerPage = 3,
-            currentPage = context.params.page;
+            currentPage = context.params.page,
+            postsPerPage = 3;
 
         let template,
-            postsKeys;
+            postsKeys,
+            recentPosts,
+            archives;
 
-        this._templatesLoader.get('category')
-            .flatMap(temp => {
-                template = temp;
-                return this._postsService.findPostsKeysByCategory(categoryName);
-            })
-            .flatMap(keys => {
-                postsKeys = keys;
+        Rx.Observable.combineLatest([
+                this._templatesLoader.get('category'),
+                this._postsService.findPostsKeysByCategory(categoryName),
+                window.recentPosts$,
+                window.archives$
+            ])
+            .flatMap(res => {
+                template = res[0];
+                postsKeys = res[1];
+                recentPosts = res[2];
+                archives = res[3];
+
                 let currentPostsKeys = postsKeys.slice((currentPage - 1) * 3, currentPage * 3);
                 currentPostsKeys.filter(p => !!p);
+
                 return this._postsService.findPostsByKeys(currentPostsKeys);
             })
-            .map(posts => {
+            .subscribe(posts => {
                 let category = {
                         title: this._categories[categoryName].name,
                         description: this._categories[categoryName].desc
@@ -72,21 +81,14 @@ export class PostsController {
                         pageCount
                     };
 
-                context.$element().html(template({ category, categoryName, posts, pagination }));
-            })
-            .subscribe(() => {
+                context.$element().html(template({ category, categoryName, posts, pagination, recentPosts, archives }));
+
                 $('.pagination').on('click', '.button', function() {
                     $('.pagination .button').removeClass('active');
                     $(this).addClass('active');
 
                     window.location.reload();
                 });
-
-                let $recentPosts = $('.sidebar .recent-posts'),
-                    $archives = $('.sidebar .archives');
-
-                $recentPosts.append(window.$recentPosts);
-                $archives.append(window.$archives);
             });
     }
 

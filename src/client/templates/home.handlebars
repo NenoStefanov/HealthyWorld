@@ -20,7 +20,7 @@
                 <div class="slide-description">
                     <h2 class="slide-title">{{title}}</h2>
                     <p class="slide-content">{{content}}</p>
-                    <a href="#/posts/{{$key}}" class="button">Read More</a>
+                    <a href="#/posts/{{key}}" class="button">Read More</a>
                 </div>
                 <div class="slide-top-shadow"></div>
                 <div class="slide-bottom-shadow"></div>
@@ -48,8 +48,10 @@
         <article class="preview">
             <h2 class="preview-title">{{title}}</h2>
             <div class="img-container preview-img-container">
-                <img src="{{imageUrl}}" alt="{{title}}" class="post-img preview-img" width="800px" height="800px">
-                <span class="preview-hover-icon"></span>
+                <a href="#/posts/{{key}}">
+                    <img src="{{imageUrl}}" alt="{{title}}" class="post-img preview-img" width="800px" height="800px">
+                    <span class="preview-hover-icon"></span>
+                </a>
             </div>
             <p class="preview-content">{{content}}</p>
         </article>
@@ -58,7 +60,11 @@
     <div class="home-related">
         <aside class="home-aside home-aside-list">
             <h4 class="related-links-title">From The Blog</h4>
-            <ul class="recent-posts related-links"></ul>
+            <ul class="recent-posts related-links">
+                {{#recentPosts}}
+                <li><a href="{{key}}">{{value}}</a></li>
+                {{/recentPosts}}
+            </ul>
         </aside>
         <aside class="home-aside">
             <h4 class="related-links-title">Multi-Media Bar</h4>

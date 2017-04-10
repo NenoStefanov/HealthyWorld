@@ -44,22 +44,19 @@ export class App {
     }
 
     setRelatedLinks() {
+        window.recentPosts$ = this._services.postsService.findFirstPosts();
+        window.archives$ = this._services.postsService.findLastPosts();
+
         let $recentPosts = $('#main-footer .recent-posts'),
             $archives = $('#main-footer .archives');
 
-        this._services.postsService.findFirstPosts()
+        window.recentPosts$
             .map(posts => createRelatedItems(posts))
-            .subscribe($items => {
-                window.$recentPosts = $items;
-                $recentPosts.append($items.clone());
-            });
+            .subscribe($items => $recentPosts.append($items.clone()));
 
-        this._services.postsService.findLastPosts()
+        window.archives$
             .map(posts => createRelatedItems(posts))
-            .subscribe($items => {
-                window.$archives = $items;
-                $archives.append($items.clone());
-            });
+            .subscribe($items => $archives.append($items.clone()));
 
         function createRelatedItems(posts) {
             let $documentFragment = $(document.createDocumentFragment());
@@ -69,8 +66,8 @@ export class App {
                     $item = $(document.createElement('li')),
                     $link = $(document.createElement('a'));
 
-                $link.attr('href', `#/posts/${post.$key}`);
-                $link.html(post.val);
+                $link.attr('href', `#/posts/${post.key}`);
+                $link.html(post.value);
                 $link.appendTo($item);
 
                 $documentFragment.append($item);

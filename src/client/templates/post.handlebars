@@ -1,4 +1,5 @@
 <section id="main-content" class="group">
+    {{#with post}}
     <div class="content-meta">
         <nav class="crumbs" role="navigation">
             <ol>
@@ -6,7 +7,7 @@
                     <a href="#/">Home</a>
                 </li>
                 <li>
-                    <a href="#/{{category}}">{{category}}</a>
+                    <a href="#/categories/{{category}}/1">{{../categoryName}}</a>
                 </li>
                 <li>
                     {{title}}
@@ -16,12 +17,12 @@
     </div>
     <header class="content-header">
         <h1>{{title}}</h1>
-        <p class="content-description">Posted by {{author}} on {{date}} in {{category}} Category</p>
+        <p class="content-description">Posted by {{author}} on {{date}} in {{../categoryName}} Category</p>
     </header>
     </div>
     <div class="container group">
         <div class="content">
-            <p class="content-info">Posted by <span class="darkgray">{{author}}</span> on {{date}} in <span class="darkgray no-break">{{category}} Category</span>                | {{comments.length}} Comments</p>
+            <p class="content-info">Posted by <span class="darkgray">{{author}}</span> on {{date}} in <span class="darkgray no-break">{{../categoryName}} Category</span>                | {{comments.length}} Comments</p>
             <div class="content-wrap">
                 <div class="img-container post-img-container">
                     <img src="{{imageUrl}}" alt="{{title}}" class="post-img" width="186" height="186">
@@ -78,15 +79,22 @@
                 </form>
             </div>
         </div>
+        {{/with}}
         <div class="sidebar">
             <aside class="sidebar-list">
                 <h4 class="related-links-title">Recent Posts</h4>
                 <ul class="recent-posts related-links">
+                    {{#recentPosts}}
+                    <li><a href="{{key}}">{{value}}</a></li>
+                    {{/recentPosts}}
                 </ul>
             </aside>
             <aside class="sidebar-list">
                 <h4 class="related-links-title">Archives</h4>
                 <ul class="archives related-links">
+                    {{#archives}}
+                    <li><a href="{{key}}">{{value}}</a></li>
+                    {{/archives}}
                 </ul>
             </aside>
         </div>

@@ -12,8 +12,7 @@ export class PostsService {
     _findPostsKeysByUserKey(userKey) {
         let url = `${this.postsUrl}PerUser/${userKey}`;
 
-        return this._dataService.getList(url)
-            .map(keys => keys.map(keyObj => keyObj.$key));
+        return this._dataService.getList(url);
     }
 
     _savePost(post) {
@@ -22,33 +21,33 @@ export class PostsService {
 
         return this._usersService.getUserByKey(userId)
             .first()
-            // Set post info
+            // set post info
             .map(user => {
                 post.userId = userId;
                 post.username = user.name;
                 post.added = currentDate;
             })
-            // Save the post
+            // save the post
             .map(() => {
                 return this._dataService.save(this.postsUrl, post);
             })
-            // Add postKey in postsPerCategory collection
+            // add postKey in postsPerCategory collection
             .map(newPost => {
                 let newPostKey = newPost.key,
                     postPerCategory = `${this.postsUrl}PerCategory/${post.category}/${newPostKey}`;
-                
+
                 this._dataService.update(postPerCategory);
 
                 return newPostKey;
             })
-            // Add postKey in postsPerUser collection
+            // add postKey in postsPerUser collection
             .map(newPostKey => {
                 let postPerUser = `${this.postsUrl}PerUser/${userId}/${newPostKey}`;
                 this._dataService.update(postPerUser);
 
                 return newPostKey;
             })
-            // Add post in recentPosts collection
+            // add post in recentPosts collection
             .map(newPostKey => {
                 let recentPost = `recentPosts/${newPostKey}`;
 
@@ -56,7 +55,7 @@ export class PostsService {
 
                 return newPostKey;
             })
-            // Add post media in media collection
+            // add post media in media collection
             .map(newPostKey => {
                 if (post.imageUrl) {
                     let mediaUrl = `media/${newPostKey}`;
@@ -71,22 +70,21 @@ export class PostsService {
                 }
 
                 return newPostKey;
-            })
-            .toPromise();
+            });
     }
 
     _savePostImage(image) {
         let imageKey = this._keyGenerator.generate();
 
         return this._dataService.saveStorageItem(imageKey, image)
-            .then(dbImage => dbImage.downloadURL);
+            .map(dbImage => dbImage.downloadURL);
     }
 
     createPost(post, image) {
         if (image) {
             return this._savePostImage(image)
-                .then(imageUrl => { post.imageUrl = imageUrl; })
-                .then(() => this._savePost(post));
+                .map(imageUrl => { post.imageUrl = imageUrl; })
+                .map(() => this._savePost(post));
         }
 
         return this._savePost(post);
@@ -99,8 +97,8 @@ export class PostsService {
 
         if (newImage) {
             return this._savePostImage(newImage)
-                .then(imageUrl => { newData.imageUrl = imageUrl; })
-                .then(() => this._dataService.update(url, newData));
+                .map(imageUrl => { newData.imageUrl = imageUrl; })
+                .map(() => this._dataService.update(url, newData));
         }
 
         // delete newData.image; // only if is necessary
@@ -112,7 +110,7 @@ export class PostsService {
         return this._dataService.getObject(url);
     }
 
-    findPostsByKeys(postsKeys$) {    
+    findPostsByKeys(postsKeys$) {
         if (Array.isArray(postsKeys$)) {
             postsKeys$ = Rx.Observable.of(postsKeys$);
         }
@@ -127,10 +125,9 @@ export class PostsService {
             .map(posts => {
                 return posts
                     .filter(p => p.val.toLowerCase().indexOf(str) > -1)
-                    .map(p => p.$key);
-        })
-        .flatMap(postsKeys => this.findPostsByKeys(postsKeys));
-        
+                    .map(p => p.key);
+            })
+            .flatMap(postsKeys => this.findPostsByKeys(postsKeys));
     }
 
     findAllPosts(limit) {
@@ -164,8 +161,7 @@ export class PostsService {
     findPostsKeysByCategory(category) {
         let url = `${this.postsUrl}PerCategory/${category}`;
 
-        return this._dataService.getList(url)
-            .map(keys => keys.map(keyObj => keyObj.$key));
+        return this._dataService.getList(url);
     }
 
     findPostsByUserKey(userKey) {

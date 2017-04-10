@@ -733,6 +733,8 @@ main {
   float: left;
   margin: 0 2.33em 1em 0;
   padding: 0.5em;
+  width: 16.67em;
+  height: 16.67em;
 }
 
 .post-img {

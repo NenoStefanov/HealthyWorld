@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $ Rx */
 
 export class MainController {
     constructor({ dataService, postsService }, { templatesLoader }) {
@@ -8,28 +8,25 @@ export class MainController {
     }
 
     getHome(context) {
-        let template,
-            posts;
+        const postsCount = 3;
 
-        this._templatesLoader.get('home')
-            .flatMap(temp => {
-                template = temp;
-                return this._postsService.findAllPosts(3);
-            })
-            .flatMap(res => {
-                posts = res.map(p => p.val);
-                return this._dataService.getList('media', { limitToFirst: 7 });
-            })
-            .map(media => {
-                context.$element().html(template({ posts, media }));
-            })
-            .subscribe(() => {
+        Rx.Observable.combineLatest([
+                this._templatesLoader.get('home'),
+                this._postsService.findAllPosts(postsCount),
+                this._dataService.getList('media', { limitToFirst: 7 }),
+                window.recentPosts$
+            ])
+            .subscribe(res => {
+                let template = res[0],
+                    posts = res[1],
+                    media = res[2],
+                    recentPosts = res[3];
+
+                context.$element().html(template({ posts, media, recentPosts }));
+
                 let $slides = $('.slide');
                 $slides.hide();
                 $slides.first().show();
-
-                let $recentPosts = $('.home-aside .recent-posts');
-                $recentPosts.append(window.$recentPosts);
             });
     }
 }

@@ -42,7 +42,14 @@ export class DataService {
             try {
                 firebaseRef
                     .on('value', snapshot => {
-                        observer.next(snapshot.val());
+                        let value = snapshot.val();
+
+                        if (!value) {
+                            observer.next(null);
+                        } else {
+                            value.key = snapshot.key;
+                            observer.next(value);
+                        }
                     });
             } catch (err) {
                 observer.error(err);
@@ -57,32 +64,46 @@ export class DataService {
                     return [];
                 }
 
-                return Object.keys(result).map(key => {
-                    return { $key: key, val: result[key] };
-                });
+                // delete the collecton key
+                delete result.key;
+
+                // map the result object to array
+                return Object.keys(result)
+                    .map(key => {
+                        let value = result[key];
+
+                        if (value === true) {
+                            return key;
+                        } else if (typeof(value) === 'string') {
+                            return { value, key };
+                        }
+
+                        value.key = key;
+                        return value;
+                    });
             });
     }
 
     save(url, data) {
-        return this._databaseRef.child(url).push(data);
+        return Rx.Observable.fromPromise(this._databaseRef.child(url).push(data));
     }
 
     update(url, data) {
         let dataToSave = {};
         dataToSave[url] = data || true;
 
-        return this._databaseRef.update(dataToSave);
+        return Rx.Observable.fromPromise(this._databaseRef.update(dataToSave));
     }
 
 
     // storage
 
     getStorageItemRef(name) {
-        return this._storageRef.child(name);
+        return Rx.Observable.fromPromise(this._storageRef.child(name));
     }
 
     saveStorageItem(fileKey, file) {
-        let fileRef = this.getStorageItemRef(fileKey);
-        return fileRef.put(file);
+        this.getStorageItemRef(fileKey)
+            .map(fileRef => fileRef.put(file));
     }
 }
