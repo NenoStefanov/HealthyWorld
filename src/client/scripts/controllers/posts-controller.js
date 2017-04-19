@@ -35,17 +35,20 @@ export class PostsController {
             .subscribe(res => {
                 let template = res[0],
                     post = res[1],
-                    categoryName = this._categories[post.category].name,
                     recentPosts = res[2],
                     archives = res[3];
 
-                context.$element().html(template({ post, categoryName, recentPosts, archives }));
+                context.$element().html(template({ post, recentPosts, archives }));
             });
     }
 
     getByCategory(context) {
         const categoryName = context.params.category,
-            currentPage = context.params.page,
+            currentPage = context.params.page || 1,
+            route = `categories/${categoryName}`,
+            pageName = this._categories[categoryName].name,
+            title = `${this._categories[categoryName].name} Category`,
+            description = `${this._categories[categoryName].desc}`,
             postsPerPage = 3;
 
         let template,
@@ -54,7 +57,7 @@ export class PostsController {
             archives;
 
         Rx.Observable.combineLatest([
-                this._templatesLoader.get('category'),
+                this._templatesLoader.get('posts'),
                 this._postsService.findPostsKeysByCategory(categoryName),
                 window.recentPosts$,
                 window.archives$
@@ -65,23 +68,29 @@ export class PostsController {
                 recentPosts = res[2];
                 archives = res[3];
 
-                let currentPostsKeys = postsKeys.slice((currentPage - 1) * 3, currentPage * 3);
-                currentPostsKeys.filter(p => !!p);
+                let currentPostsKeys = postsKeys
+                    .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+                    .filter(p => !!p);
 
                 return this._postsService.findPostsByKeys(currentPostsKeys);
             })
             .subscribe(posts => {
-                let category = {
-                        title: this._categories[categoryName].name,
-                        description: this._categories[categoryName].desc
-                    },
-                    pageCount = Math.ceil(postsKeys.length / postsPerPage),
+                let pageCount = Math.ceil(postsKeys.length / postsPerPage),
                     pagination = {
                         page: currentPage,
                         pageCount
                     };
 
-                context.$element().html(template({ category, categoryName, posts, pagination, recentPosts, archives }));
+                context.$element().html(template({
+                    route,
+                    pageName,
+                    title,
+                    description,
+                    posts,
+                    pagination,
+                    recentPosts,
+                    archives
+                }));
 
                 $('.pagination').on('click', '.button', function() {
                     $('.pagination .button').removeClass('active');
@@ -96,12 +105,120 @@ export class PostsController {
 
     }
 
-    getByTitle() {
+    getByTitle(context) {
+        const postsTitle = context.params.title || '',
+            currentPage = context.params.page || 1,
+            route = `posts?title=${postsTitle}&`,
+            pageName = 'Search results',
+            title = `Search results for "${postsTitle}"`,
+            postsPerPage = 3;
 
+        let template,
+            postsKeys,
+            recentPosts,
+            archives;
+
+        Rx.Observable.combineLatest([
+                this._templatesLoader.get('posts'),
+                this._postsService.findPostsKeysByTitle(postsTitle),
+                window.recentPosts$,
+                window.archives$
+            ])
+            .flatMap(res => {
+                template = res[0];
+                postsKeys = res[1];
+                recentPosts = res[2];
+                archives = res[3];
+
+                let currentPostsKeys = postsKeys
+                    .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+                    .filter(p => !!p);
+
+                return this._postsService.findPostsByKeys(currentPostsKeys);
+            })
+            .subscribe(posts => {
+                let pageCount = Math.ceil(postsKeys.length / postsPerPage),
+                    pagination = {
+                        page: currentPage,
+                        pageCount
+                    };
+
+                context.$element().html(template({
+                    route,
+                    pageName,
+                    title,
+                    posts,
+                    pagination,
+                    recentPosts,
+                    archives
+                }));
+
+                $('.pagination').on('click', '.button', function() {
+                    $('.pagination .button').removeClass('active');
+                    $(this).addClass('active');
+
+                    window.location.reload();
+                });
+            });
     }
 
-    getAll() {
+    getAll(context) {
+        const currentPage = context.params.page || 1,
+            route = 'posts/all',
+            pageName = 'Blog',
+            title = 'Blog',
+            description = 'Site blog posts',
+            postsPerPage = 3;
 
+        let template,
+            allPosts,
+            recentPosts,
+            archives;
+
+        Rx.Observable.combineLatest([
+                this._templatesLoader.get('posts'),
+                this._postsService.findAllPostsKeys(),
+                window.recentPosts$,
+                window.archives$
+            ])
+            .flatMap(res => {
+                template = res[0];
+                allPosts = res[1];
+                recentPosts = res[2];
+                archives = res[3];
+
+                let currentPostsKeys = allPosts
+                    .slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage)
+                    .filter(p => !!p)
+                    .map(p => p.key);
+
+                return this._postsService.findPostsByKeys(currentPostsKeys);
+            })
+            .subscribe(posts => {
+                let pageCount = Math.ceil(allPosts.length / postsPerPage),
+                    pagination = {
+                        page: currentPage,
+                        pageCount
+                    };
+
+                context.$element().html(template({
+                    pageName,
+                    title,
+                    description,
+                    route,
+                    posts,
+                    pagination,
+                    recentPosts,
+                    archives
+                }));
+
+                $('.pagination').on('click', '.button', function() {
+                    $('.pagination .button').removeClass('active');
+                    $(this).addClass('active');
+
+                    window.location.reload();
+                });
+            });
     }
 
     add() {

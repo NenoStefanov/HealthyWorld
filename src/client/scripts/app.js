@@ -52,11 +52,11 @@ export class App {
 
         window.recentPosts$
             .map(posts => createRelatedItems(posts))
-            .subscribe($items => $recentPosts.append($items.clone()));
+            .subscribe($items => $recentPosts.html($items.clone()));
 
         window.archives$
             .map(posts => createRelatedItems(posts))
-            .subscribe($items => $archives.append($items.clone()));
+            .subscribe($items => $archives.html($items.clone()));
 
         function createRelatedItems(posts) {
             let $documentFragment = $(document.createDocumentFragment());
@@ -89,12 +89,12 @@ export class App {
 
         $tbSearch.keypress(e => {
             if (e.which === 13) {
-                window.location.href = `#/posts?s=${$tbSearch.val()}`;
+                window.location.href = `#/posts?title=${$tbSearch.val()}&page=1`;
             }
         });
 
         $btnSearch.on('click', () => {
-            window.location.href = `#/posts?s=${$tbSearch.val()}`;
+            window.location.href = `#/posts?title=${$tbSearch.val()}&page=1`;
         });
 
         $mainNav.click(e => {

@@ -112,22 +112,16 @@ export class PostsService {
 
     findPostsByKeys(postsKeys$) {
         if (Array.isArray(postsKeys$)) {
+            if (!postsKeys$.length) {
+                return Rx.Observable.of([]);
+            }
+
             postsKeys$ = Rx.Observable.of(postsKeys$);
         }
 
         return postsKeys$
             .map(keys => keys.map(key => this.findPostByKey(key)))
             .flatMap(fbojs => Rx.Observable.combineLatest(fbojs));
-    }
-
-    findPostsByTitle(str) {
-        return this._dataService.getList('recentPosts')
-            .map(posts => {
-                return posts
-                    .filter(p => p.val.toLowerCase().indexOf(str) > -1)
-                    .map(p => p.key);
-            })
-            .flatMap(postsKeys => this.findPostsByKeys(postsKeys));
     }
 
     findAllPosts(limit) {
@@ -140,6 +134,15 @@ export class PostsService {
         }
 
         return this._dataService.getList(this.postsUrl);
+    }
+
+    findPostsKeysByTitle(str) {
+        return this._dataService.getList('recentPosts')
+            .map(posts => {
+                return posts
+                    .filter(p => p.value.toLowerCase().indexOf(str) > -1)
+                    .map(p => p.key);
+            });
     }
 
     findFirstPosts(count = 6) {
@@ -156,6 +159,10 @@ export class PostsService {
         };
 
         return this._dataService.getList('recentPosts', query);
+    }
+
+    findAllPostsKeys() {
+        return this._dataService.getList('recentPosts');
     }
 
     findPostsKeysByCategory(category) {

@@ -8,6 +8,10 @@ export class TemplatesLoader {
         this._cache = {};
 
         this._handlebars.registerHelper('paginate', paginate.default);
+
+        this._handlebars.registerHelper('capitalizeFirstLetter', str => {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        });
     }
 
     get(name) {

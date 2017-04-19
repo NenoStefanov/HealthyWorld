@@ -13,24 +13,28 @@ export class Router {
             });
             this.get('#/home', context => mainController.getHome(context));
 
-            // User
+            // user
             this.get('#/user/profile', context => usersController.getProfile(context));
             this.get('#/user/posts', context => usersController.getPosts(context));
 
-            // Auth
+            // auth
             this.get('#/auth/register', context => authController.register(context));
             this.get('#/auth/login', context => authController.login(context));
             this.get('#/auth/logout', context => authController.logout(context));
 
-            // Posts
+            // posts
             this.get('#/posts', context => postsController.getByTitle(context));
             this.get('#/posts/all', context => postsController.getAll(context));
             this.get('#/posts/add', context => postsController.add(context));
             this.get('#/posts/update', context => postsController.update(context));
             this.get('#/posts/:id', context => postsController.get(context));
 
-            // Cagetory
-            this.get('#/categories/:category/:page', context => postsController.getByCategory(context));
+            // cagetory
+            this.get('#/categories/:category', context => postsController.getByCategory(context));
+
+            this.notFound = function() {
+
+            };
         });
     }
 

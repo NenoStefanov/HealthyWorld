@@ -1,0 +1,62 @@
+<section id="main-content" class="group">
+    <div class="content-meta">
+        <nav class="crumbs" role="navigation">
+            <ol>
+                <li>
+                    <a href="#/">Home</a>
+                </li>
+                <li>
+                    {{pageName}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <header class="content-header">
+        <h1>{{title}}</h1>
+        <p class="content-description">{{description}}</p>
+    </header>
+    </div>
+    <div class="container group">
+        <div class="content">
+            {{#posts}}
+            <div class="category-post category-last-post">
+                <h2 class="post-title">{{title}}</h2>
+                <p class="content-info">Posted by <a href="#" class="darkgray no-break">{{author}}</a> on {{date}}
+                    <wrb> in <a href="#/categories/{{category}}?page=1" class="darkgray no-break">{{capitalizeFirstLetter category}} Category</a> | <span class="no-break">{{comments.length}} Comments</p>
+                <div class="content-wrap category-content-wrap">
+                    <div class="img-container post-img-container">
+                        <img src="{{imageUrl}}" alt="{{title}}" class="post-img" width="186" height="186">
+                    </div>
+                    <p>{{content}}</p>
+                </div>
+                <a href="#/posts/{{key}}" class="button">Read More</a>
+            </div>
+            {{else}}
+            <h2>There are no posts with this title</h2>
+            {{/posts}}
+            <ol class="pagination">
+                {{#paginate pagination type="middle" limit="7"}}
+                <li><a href="#/{{../route}}?page={{n}}" {{#if active}}class="button active" {{else}} class="button"{{/if}}>{{n}}</a></li>
+                {{/paginate}}
+            </ol>
+        </div>
+        <div class="sidebar">
+            <aside class="sidebar-list">
+                <h4 class="related-links-title">Recent Posts</h4>
+                <ul class="recent-posts related-links">
+                    {{#recentPosts}}
+                    <li><a href="{{key}}">{{value}}</a></li>
+                    {{/recentPosts}}
+                </ul>
+            </aside>
+            <aside class="sidebar-list">
+                <h4 class="related-links-title">Archives</h4>
+                <ul class="archives related-links">
+                    {{#archives}}
+                    <li><a href="{{key}}">{{value}}</a></li>
+                    {{/archives}}
+                </ul>
+            </aside>
+        </div>
+    </div>
+</section>
